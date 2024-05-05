@@ -12,16 +12,16 @@ import needle from 'needle';
 //     console.log(res.body)
 // })
 
-needle.post('http://localhost:3000/save-product', {
-    productID: "1",
-    productName: "Chicken Feeds",
-    productDescription: "tiktilaok",
-    productType: 3,
-    productQuantity: 10,
-    productPrice: 500  
-}, (err, res) =>{
-    console.log(res.body)
-})
+// needle.post('http://localhost:3000/save-product', {
+//     productID: "1",
+//     productName: "Chicken Feeds",
+//     productDescription: "tiktilaok",
+//     productType: 3,
+//     productQuantity: 10,
+//     productPrice: 500  
+// }, (err, res) =>{
+//     console.log(res.body)
+// })
 
 // needle.post('http://localhost:3000/save-order', {
 //     transactionID: "ABC",
@@ -35,7 +35,7 @@ needle.post('http://localhost:3000/save-product', {
 //     console.log(res.body)
 // })
 
-//updating a product
+// updating a product
 // needle.post('http://localhost:3000/update-qty', {
 //     productID: "1"
 // }, (err, res) =>{
@@ -50,7 +50,7 @@ needle.post('http://localhost:3000/save-product', {
 //    console.log(res.body)
 // })
 
-//deleting a product
+// deleting a product
 // needle.post('http://localhost:3000/remove-product', { 
 //     productID: "1"                           
 // }, (err, res) => {

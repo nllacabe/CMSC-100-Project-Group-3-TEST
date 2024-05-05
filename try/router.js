@@ -1,4 +1,8 @@
-import {saveUser, saveProduct, updateQty, getAllProducts, saveOrder, updateStatus, getAllOrders} from './controller.js'
+import {
+    saveUser, 
+    saveProduct, updateQty, removeProduct, getAllProducts, 
+    saveOrder, updateStatus, getAllOrders, 
+} from './controller.js'
 
 const router = (app) =>{
     app.post('/save-user', saveUser)                    // user
