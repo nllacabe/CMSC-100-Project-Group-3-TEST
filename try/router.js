@@ -5,6 +5,7 @@ const router = (app) =>{
 
     app.post('/save-product', saveProduct)              // product
     app.post('/update-qty', updateQty)
+    app.post('/remove-product', removeProduct)
     app.get('/get-all-products', getAllProducts)
 
     app.post('/save-order', saveOrder)                  // order

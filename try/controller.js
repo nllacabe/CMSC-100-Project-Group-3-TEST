@@ -79,6 +79,13 @@ const getAllProducts = async (req, res) => {            // get method for gettin
         res.json({});
     }
 };
+
+const removeProduct = async (req, res) => {    //delete a product by product ID
+    res.send(await Product.deleteOne({ productID: req.body.productID}))
+}
+
+
+
 // --------------------------------------------
 
 
@@ -111,4 +118,4 @@ const getAllOrders = async (req, res) => {              // get method for gettin
 // --------------------------------------------
 
 
-export {saveUser, saveProduct, updateQty, getAllProducts, saveOrder, updateStatus, getAllOrders}
+export {saveUser, saveProduct, updateQty, getAllProducts, saveOrder, updateStatus, getAllOrders, removeProduct}

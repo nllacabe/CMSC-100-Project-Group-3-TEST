@@ -113,24 +113,32 @@ const User = mongoose.model('User', {
 }, 'userData'); 
 
 // define and create Product model
+// const Product = mongoose.model('Product', {
+//     productName: {
+//       type: String,
+//     },
+//     productType: {
+//       type: Number,
+//       enum: [1, 2, 3, 4, 5], //(Int: 1 Staple/2 Fruits and Vegetables/ 3 Livestock/ 4 Seafood/ 5 Others)
+//     },
+//     productPrice: {
+//       type: Number,
+//     },
+//     productDescription: {
+//       type: String,
+//     },
+//     productQuantity: {
+//       type: Number,
+//     }
+//   }, 'productData'); 
+
 const Product = mongoose.model('Product', {
-    productName: {
-      type: String,
-    },
-    productType: {
-      type: Number,
-      enum: [1, 2, 3, 4, 5], //(Int: 1 Staple/2 Fruits and Vegetables/ 3 Livestock/ 4 Seafood/ 5 Others)
-    },
-    productPrice: {
-      type: Number,
-    },
-    productDescription: {
-      type: String,
-    },
-    productQuantity: {
-      type: Number,
-    }
-  }, 'productData'); 
+  productName: String,
+  productType:Number,
+  productPrice: Number,
+  productDescription: String,
+  productQuantity: Number,
+}, 'productData'); 
 
 
 const Order = mongoose.model('Order', {
@@ -180,15 +188,29 @@ const saveProduct = async (req, res) => {
 };
 
 // function - get all products
-const getAllProducts = async (req, res) => {
-  const products = await Product.find();
+// const getAllProducts = async (req, res) => {
+//   const products = await Product.find();
   
-  if (products.length > 0) {
-      res.json(products);
-  } else {
-      res.json([]);
-  }
-};
+//   if (products.length > 0) {
+//       res.json(products);
+//   } else {
+//       res.json([]);
+//   }
+// };
+
+//function - edit a product quantity according to its product ID
+// const updateQuantity = async (req, res) => {  
+//    res.send(await Product.updateOne(
+//         {productID: req.body.productID},
+//         {$set: {productQuantity: "2"}}
+//     ));
+
+// }
+
+
+
+
 
 // export functions whaha
-// export { };
+export {saveProduct};
+// export { saveStudent, updateStudent, removeUser, removeAllUsers, getUser, getAllMembers };
