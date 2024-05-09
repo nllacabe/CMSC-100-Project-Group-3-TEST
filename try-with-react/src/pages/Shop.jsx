@@ -15,11 +15,21 @@ export default function Shop() {
 
   return (
     <>
-      <div>
-        {items.map((item, i) =>
-            <div>{item.productName}</div>
-        )}
-      </div>
+      <main>
+        <div className="item-part">
+          <div className="card-container">
+            {items.map((item, i) =>
+                <div className="card">
+                  <p>{item.productName}</p>
+                  <p>₱{item.productPrice}.00</p>
+                </div>
+            )}
+          </div>
+        </div>
+        <div className="cart-part">
+          <h2>Shopping Cart</h2>
+        </div>
+      </main>
     </>
   )
 }
