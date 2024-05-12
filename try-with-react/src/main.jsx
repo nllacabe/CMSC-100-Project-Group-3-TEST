@@ -7,16 +7,17 @@ import './App.css';
 import Signup from './pages/Signup';
 import Root from './pages/Root';
 import Shop from './pages/Shop';
-
+import Login from './pages/Login';
 // Define the routes
 const router = createBrowserRouter([
-  { path: '/', element: <Signup />, children: [
-    { path: '/', element: <Root />, children: [
-      { path: '/shop', element: <Shop /> },
-      // Add other children routes of Root if needed
-    ]}
-  ]}
+  { path: '/', element: <Signup />},
+  { path: '/root', element: <Root />, children: [
+    { path: 'shop', element: <Shop /> },
+    // Add other children routes of Root if needed
+  ]},
+  { path: '/login', element: <Login /> }, // route for the login page
 ]);
+
 
 // Render the application
 ReactDOM.createRoot(document.getElementById('root')).render(
