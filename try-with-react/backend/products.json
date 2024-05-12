@@ -5,7 +5,8 @@
     "productDescription": "Elevate your flock's health with our premium chicken feed blend. Packed with essential nutrients for vibrant plumage and strong eggshells, it ensures happy, healthy chickens and delicious eggs. Trust our balanced formula for optimal vitality from chick to hen.",
     "productType": 3,
     "productQuantity": 10,
-    "productPrice": 500
+    "productPrice": 500,
+    "productImg": "https://m.media-amazon.com/images/I/71HEUX1BpZL._AC_SL1500_.jpg"
 },
 {
     "productID": "2",
@@ -13,7 +14,8 @@
     "productDescription": "Sweet, juicy, and bursting with tropical flavor. Whether enjoyed fresh, grilled, or blended into a refreshing drink, it's a taste of paradise in every bite.",
     "productType": 2,
     "productQuantity": 5,
-    "productPrice": 130
+    "productPrice": 130,
+    "productImg": "https://www.healthxchange.sg/sites/hexassets/Assets/food-nutrition/pineapple-health-benefits-and-ways-to-enjoy.jpg"
 },
 {
     "productID": "3",
@@ -21,7 +23,8 @@
     "productDescription": "Introducing our crisp and refreshing cucumbers, nature's hydrating delight. Picked at peak freshness, our cucumbers are bursting with flavor and packed with nutrients. Enjoy them sliced in salads, as a crunchy snack, or infused in your favorite beverages.",
     "productType": 2,
     "productQuantity": 15,
-    "productPrice": 70
+    "productPrice": 70,
+    "productImg": "https://urjaseeds.com/cdn/shop/products/cucumber-seeds-malaysia-t103m_1024x.jpg?v=1591175147"
 },
 {
     "productID": "4",
@@ -29,7 +32,8 @@
     "productDescription": "Discover our succulent shrimp, freshly harvested for exceptional taste and quality. Perfect for grilling, sautéing, or adding to any dish. Elevate your meals with our premium seafood.",
     "productType": 4,
     "productQuantity": 10,
-    "productPrice": 240
+    "productPrice": 240,
+    "productImg": "https://img.freepik.com/free-photo/fresh-shrimp-prawn_1339-2185.jpg"
 },
 {
     "productID": "5",
@@ -37,7 +41,8 @@
     "productDescription": "Introducing our premium rice, the cornerstone of culinary perfection. Grown in fertile fields and expertly milled, our rice boasts a delicate texture and rich flavor profile. Whether paired with savory stir-fries, creamy risottos, or enjoyed as a simple side dish, our rice elevates every meal to new heights. Savor the taste of excellence with every grain.",
     "productType": 1,
     "productQuantity": 40,
-    "productPrice": 50  
+    "productPrice": 50,
+    "productImg": "https://img.freepik.com/premium-photo/raw-rice-sack-white-background_66899-1765.jpg"
 },
 {
     "productID": "6",
@@ -45,7 +50,8 @@
     "productDescription": "Dive into culinary excellence with our tender squid, sourced from pristine waters and expertly prepared for your enjoyment. With its delicate flavor and versatile nature, our squid is perfect for grilling, frying, or adding to your favorite seafood dishes.",
     "productType": 4,
     "productQuantity": 25,
-    "productPrice": 400  
+    "productPrice": 400,
+    "productImg": "https://img.freepik.com/premium-photo/raw-squid-fresh-calamari-plate-isolated-white-background_89816-46479.jpg"
 },
 {
     "productID": "7",
@@ -53,7 +59,8 @@
     "productDescription": "Discover the versatility of our potatoes, a kitchen staple loved for its hearty flavor and endless culinary possibilities. Whether mashed, roasted, or fried, our premium potatoes promise exceptional taste and texture in every bite.",
     "productType": 1,
     "productQuantity": 50,
-    "productPrice": 200  
+    "productPrice": 200,
+    "productImg": "https://www.jiomart.com/images/product/original/590000090/potato-1-kg-product-images-o590000090-p590000090-0-202207291750.jpg?im=Resize=(420,420)"
 },
 {
     "productID": "8",
@@ -61,7 +68,8 @@
     "productDescription": "Elevate your cooking with our premium coconut oil, extracted from the finest coconuts for unparalleled flavor and quality. Perfect for frying, baking, or adding a touch of tropical richness to your favorite dishes. Experience the versatility and health benefits of our pure coconut oil, a kitchen essential for every culinary enthusiast.",
     "productType": 5,
     "productQuantity": 20,
-    "productPrice": 180  
+    "productPrice": 180,
+    "productImg": "https://justasoap.co.uk/cdn/shop/products/shutterstock_1910657323_1.jpg?v=1650137231"
 },
 {
     "productID": "9",
@@ -69,7 +77,8 @@
     "productDescription": "Savor the rich, buttery flavor and crunchy texture of our premium walnuts, harvested at peak ripeness for optimal taste and nutrition. Packed with heart-healthy omega-3 fatty acids and antioxidants, our walnuts make the perfect snack or addition to salads, baked goods, and more.",
     "productType": 5,
     "productQuantity": 30,
-    "productPrice": 120  
+    "productPrice": 120,
+    "productImg": "https://simplythegreat.ae/cdn/shop/products/Untitleddesign-2022-02-23T141352.504.png?v=1645607640"
 },
 {
     "productID": "10",
@@ -77,6 +86,7 @@
     "productDescription": "Indulge in the succulent taste of our premium meat, expertly selected and hand-cut for maximum tenderness and flavor. From juicy steaks to tender roasts, our quality cuts promise to elevate every meal to a culinary masterpiece.",
     "productType": 3,
     "productQuantity": 10,
-    "productPrice": 270
+    "productPrice": 270,
+    "productImg": "https://www.provisioneronline.com/ext/resources/images/Responsive-Default-Images/meat-science-review.jpg?1607975249"
 }
 ]

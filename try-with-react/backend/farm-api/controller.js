@@ -53,6 +53,9 @@ const Product = mongoose.model('Product', {
     },
     productPrice: { // additional field for price (wala sa docs)
       type: Number,
+    },
+    productImg: {
+      type: String
     }
 }, 'productData'); // collection name: productData
 
@@ -62,15 +65,14 @@ const Order = mongoose.model('Order', {
         type: String,
         unique: true // Ensure transactionID is unique
     },
-    productID: {
-        type: String,
+    productIDs: {
+        type: [String],
     },
     orderQuantity: {
-        type: Number,
+        type: [Number],
     },
     orderStatus: {
         type: Number,
-        enum: [0, 1, 2], // (Int: 0 Pending / 1 Completed / 2 Canceled )
     },
     email: {
         type: String,
@@ -78,8 +80,8 @@ const Order = mongoose.model('Order', {
     dateOrdered: {
         type: Date,
     },
-    time: {
-        type: Date,
+    timeOrdered: {
+        type: String,
     }
 }, 'orderData'); // collection name: orderData
 
@@ -165,13 +167,13 @@ const removeProduct = async (req, res) => {    //delete a product by product ID
 // functions for Order ------------------------
 const saveOrder = async (req, res) => {                 // post method for saving orders
     if (
-        !req.body.transactionID || 
-        !req.body.productID ||
+        !req.body.transactionID ||
+        !req.body.productIDs ||
         !req.body.orderQuantity ||
         !req.body.orderStatus ||
         !req.body.email ||
         !req.body.dateOrdered ||
-        !req.body.time
+        !req.body.timeOrdered
     ){
         res.json({ success: false, message: 'All required fields must be provided' });
         return;
