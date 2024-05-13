@@ -6,9 +6,10 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+    
         try {
             const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
@@ -17,15 +18,14 @@ export default function Login() {
                 },
                 body: JSON.stringify({ username, password })
             });
-
+    
+            const responseData = await response.json();
+    
             if (!response.ok) {
-                throw new Error('Failed to login');
-            }
-
-            const data = await response.json();
-
-            if (data === "Success") {
-                navigate(`/root/shop`);
+                alert(`Login failed: ${responseData.message}`);
+            } else {
+                //alert("Login successful");
+                navigate(`/root/shop`);  //navigate to shop page
             }
         } catch (error) {
             console.error('Error:', error);

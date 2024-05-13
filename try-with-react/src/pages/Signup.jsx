@@ -10,7 +10,8 @@ export default function Signup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+                
+
         try {
             const response = await fetch("http://localhost:3000/signup", {
                 method: "POST",
@@ -37,7 +38,7 @@ export default function Signup() {
             }
         } catch (error) {
             console.error("Error:", error);
-            alert("Signup failed");
+            //alert("Signup failed");
         }
     };
 
