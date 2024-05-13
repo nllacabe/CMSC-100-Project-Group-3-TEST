@@ -45,7 +45,11 @@ app.post('/signup', async (req, res) => {
     try {
       // Extract user details from request body
       const { username, email, password } = req.body;
-      
+        
+      // Check if any field is empty
+      if (!username || !email || !password) {
+        return res.status(400).json({ message: 'All fields are required' });
+      }      
       
       // Check if user already exists
       const existingEmail = await User.findOne({ email });
@@ -103,6 +107,11 @@ app.post('/login', async (req, res) => {
       // Extract user details from request body
       const { username, password } = req.body;
 
+      // Check if any field is empty
+      if (!username || !password) {
+        return res.status(400).json({ message: 'username and password are required' });
+      }      
+      
       // Check if user already exists
       const existingUser = await User.findOne({ username });
 
