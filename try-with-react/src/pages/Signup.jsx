@@ -54,7 +54,7 @@
                 _id: shoppingCartId,
                 // Add any other properties you want for the shopping cart
                 items: [],
-                quantity: 0
+                quantity: []
             };
         
             // Send requests to create user and shopping cart

@@ -64,7 +64,7 @@ const ShoppingCart = mongoose.model('ShoppingCart', {
     type: [String]
   },
   quantity: {
-    type: Number
+    type: [Number]
   }
 }, 'shoppingCartUser'); // collection name
 
