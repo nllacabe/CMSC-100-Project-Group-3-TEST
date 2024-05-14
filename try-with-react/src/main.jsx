@@ -8,6 +8,8 @@ import Signup from './pages/Signup';
 import Root from './pages/Root';
 import Shop from './pages/Shop';
 import Login from './pages/Login';
+
+const isUserSignedIn = !!localStorage.getItem('token')
 // Define the routes
 const router = createBrowserRouter([
   { path: '/', element: <Signup />},
@@ -16,8 +18,9 @@ const router = createBrowserRouter([
     // Add other children routes of Root if needed
   ]},
   { path: '/login', element: <Login /> }, // route for the login page
+//{isUserSignedIn && <Route path='/root' element={<Root/>}/>}
 ]);
-
+//ituloy nasa last part ng vid
 
 // Render the application
 ReactDOM.createRoot(document.getElementById('root')).render(

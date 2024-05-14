@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 
 export default function Login() {
     const [username, setUsername] = useState("");
@@ -11,13 +13,8 @@ export default function Login() {
         e.preventDefault();
     
         try {
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            });
+            const response = await axios.post('http://localhost:3000/login', {username, password})
+            const token = response.data.token
     
             const responseData = await response.json();
     
@@ -26,6 +23,8 @@ export default function Login() {
             } else {
                 //alert("Login successful");
                 navigate(`/root/shop`);  //navigate to shop page
+                window.location.reload();
+                localStorage.setItem('token', token); 
             }
         } catch (error) {
             console.error('Error:', error);
