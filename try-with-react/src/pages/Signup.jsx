@@ -1,6 +1,7 @@
     import React, { useEffect, useState } from "react";
     import { Link } from 'react-router-dom';
     import axios from "axios";
+    import { v4 as uuidv4 } from 'uuid';
 
     export default function Signup() {
         // const [user, setUser] = useState({
@@ -30,64 +31,58 @@
             })
         }
 
-    
-        // const handleSubmit = async (e) => {
-        //     e.preventDefault();
-
-        //     try {
-        //         const response = await fetch("http://localhost:3000/signup", {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json"
-        //             },
-        //             body: JSON.stringify({
-        //                 firstName: user.firstname,
-        //                 lastName: user.lastname,
-        //                 userType: user.userType,
-        //                 username: user.username,
-        //                 email: user.email,
-        //                 password: user.password
-        //             })
-        //         });
-
-        //         if (response.ok) {
-        //             alert("Signup successful");
-        //             setUser({
-        //                 firstname: '',
-        //                 lastname: '',
-        //                 username: '',
-        //                 email: '',
-        //                 password:'',
-        //                 userType: 'customer'
-                        
-        //             });
-        //         } else {
-        //             const errorData = await response.json();
-        //             alert(`Signup failed: ${errorData.message}`);
-        //         }
-        //     } catch (error) {
-        //         console.error("Error:", error);
-        //         //alert("Signup failed");
-        //     }
-        // };
 
         const handleSubmit = (e) => {
             e.preventDefault();
-
-            axios.post('http://localhost:3000/signup', { firstName, lastName, username, password, email, userType })
+        
+            // Generate a unique shopping cart ID
+            const shoppingCartId = uuidv4();
+        
+            // Create the user object with signup information
+            const newUser = {
+                firstName,
+                lastName,
+                username,
+                password,
+                email,
+                userType,
+                shoppingCart: shoppingCartId // Assign the shopping cart ID to the user
+            };
+        
+            // Create a shopping cart object
+            const newShoppingCart = {
+                _id: shoppingCartId,
+                // Add any other properties you want for the shopping cart
+                items: [],
+                quantity: 0
+            };
+        
+            // Send requests to create user and shopping cart
+            axios.post('http://localhost:3000/signup', newUser)
                 .then(() => {
-                    setFirstname('')
-                    setLastname('')
-                    setType('customer')
-                    setUsername('')
-                    setPassword('')
-                    setEmail('')
-                    fetchUsers()
+                    // Reset form fields after successful signup
+                    setFirstname('');
+                    setLastname('');
+                    setType('customer');
+                    setUsername('');
+                    setPassword('');
+                    setEmail('');
+                    // Fetch users or do any other necessary actions
+                    fetchUsers();
                 })
-                .catch((e) => {
-                    console.log('Unable to register user')
+                .catch((error) => {
+                    console.log('Unable to register user', error);
+                });
+        
+            axios.post('http://localhost:3000/shoppingCart', newShoppingCart)
+                .then(() => {
+                    // Perform any actions after successful shopping cart creation
                 })
+                .catch((error) => {
+                    console.log('Unable to create shopping cart', error);
+                });
         }
+        
 
         return (
             <div className='App'>

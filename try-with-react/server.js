@@ -51,52 +51,27 @@ const User = mongoose.model('User', {
       required: true
     },
     shoppingCart: {
-      type: mongoose.Schema.Types.ObjectId,   //reference to another schema
-      ref: 'ShoppingCart'
+      type: String,   //reference to another schema
   }
 }, 'userData'); // collection name
 
-// Route to handle user signup
-// app.post('/signup', async (req, res) => {
-//     try {
-//       // Extract user details from request body
-//       const { firstName, lastName, userType,username, email, password } = req.body;
-      
-//       // Check if any field is empty
-//       if (!username || !email || !password || !firstName || !lastName) {
-//         return res.status(400).json({ message: 'All fields are required' });
-//       }      
-      
-      
-//       // Check if user already exists
-//       const existingEmail = await User.findOne({ email });
-//       const existingUser = await User.findOne({ username });
-//       if (existingUser) {
-//         return res.status(400).json({ message: 'User already exists' });
-//       }
-//       else if (existingEmail) {
-//         return res.status(400).json({ message: 'Email already exists' });
-//       }
-  
-//       const hashedPassword = await bcrypt.hash(password, 10);  //create hashedPass
-//       // Create new user instance
-//       const newUser = new User({ firstName, lastName, username, email, hashedPassword, userType });
-
-//       // Save user to database
-//       await newUser.save();
-  
-//       // Send response
-//       res.status(201).json({ message: 'User created successfully' });
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: 'Internal server error' });
-//     }
-//   });
+//define shoppingcart schema
+const ShoppingCart = mongoose.model('ShoppingCart', {
+  _id: {
+    type: String
+  },
+  items: {
+    type: [String]
+  },
+  quantity: {
+    type: Number
+  }
+}, 'shoppingCartUser'); // collection name
 
 app.post('/signup', async (req, res) => {
   try {
     // Extract user details from request body
-    const { firstName, lastName, userType, username, email, password } = req.body;
+    const { firstName, lastName, userType, username, email, password, shoppingCart } = req.body;
 
     // Check if any field is empty
     if (!username || !email || !password || !firstName || !lastName) {
@@ -114,7 +89,7 @@ app.post('/signup', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);  //create hashedPassword
     // Create new user instance
-    const newUser = new User({ firstName, lastName, username, email, password: hashedPassword, userType }); // Change password to hashedPassword
+    const newUser = new User({ firstName, lastName, username, email, password: hashedPassword, userType, shoppingCart }); // Change password to hashedPassword
 
     // Save user to database
     await newUser.save();
@@ -128,6 +103,7 @@ app.post('/signup', async (req, res) => {
 });
 
 
+
 app.get('/signup', async (req, res) => {
   try {
     const users = await User.find()
@@ -136,6 +112,25 @@ app.get('/signup', async (req, res) => {
 
   catch (error){
     res.status(500).json({error: "Unable to get user"})
+  }
+});
+
+
+app.post('/shoppingCart', async (req, res) => {
+  try {
+      const { _id, items, quantity } = req.body;
+
+      // Create new shopping cart instance
+      const newShoppingCart = new ShoppingCart({_id, items, quantity });
+
+      // Save shopping cart to database
+      await newShoppingCart.save();
+
+      // Send response
+      res.status(201).json({ message: 'Shopping cart created successfully', shoppingCart: newShoppingCart }); // Return the saved shopping cart object
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
   }
 });
 
