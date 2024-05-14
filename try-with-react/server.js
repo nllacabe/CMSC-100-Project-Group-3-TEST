@@ -55,7 +55,7 @@ const User = mongoose.model('User', {
   }
 }, 'userData'); // collection name
 
-//define shoppingcart schema
+//define and create user shopping cart model
 const ShoppingCart = mongoose.model('ShoppingCart', {
   _id: {
     type: String
@@ -68,6 +68,7 @@ const ShoppingCart = mongoose.model('ShoppingCart', {
   }
 }, 'shoppingCartUser'); // collection name
 
+//post request for signup
 app.post('/signup', async (req, res) => {
   try {
     // Extract user details from request body
@@ -115,7 +116,7 @@ app.get('/signup', async (req, res) => {
   }
 });
 
-
+//post request for shopping cart
 app.post('/shoppingCart', async (req, res) => {
   try {
       const { _id, items, quantity } = req.body;
@@ -134,15 +135,12 @@ app.post('/shoppingCart', async (req, res) => {
   }
 });
 
+
 // Route to handle user login
 app.post('/login', async (req, res) => {
   try {
       // Extract user details from request body
-      const { username, password } = req.body;
-
-      //if (userType != customer) {
-      //  return res.status(401).json({message: 'cannot access'})
-      //}
+      const {username, password } = req.body;
 
       // Check if any field is empty
       if (!username || !password) {
@@ -151,24 +149,27 @@ app.post('/login', async (req, res) => {
       
       // Check if user already exists
       const existingUser = await User.findOne({ username });
-
       if (!existingUser) {
           return res.status(401).json({ message: 'User not found' });
       }
+
+    // Check if the userType is 'customer'
+    if (existingUser.userType !== 'customer') {
+      return res.status(401).json({ message: 'Access denied: Only customers are allowed to log in' });
+    }
+
       const isPasswordValid = await bcrypt.compare(password, existingUser.password)
-      if (!isPasswordvalid) {
+      if (!isPasswordValid) {
           return res.status(401).json({ message: 'Incorrect password' });
       }
 
-      const token = jwt.sign({userId: user._id}, SECRET_KEY, { expiresIn: '1hr' })
-      res.json({message: 'Login successful'})
+      const token = jwt.sign({ userId: existingUser._id }, SECRET_KEY, { expiresIn: '1hr' });
+      res.json({ message: 'Login successful', token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
 
-      // If username and password are correct, send success response
-     // res.status(200).json({ message: 'Success' });
-  } catch (error) {
-     // console.error(error);
-      res.status(500).json({ error: 'Internal server error', error });
-  }
 });
 
 

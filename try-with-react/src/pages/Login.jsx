@@ -2,29 +2,24 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
     
         try {
-            const response = await axios.post('http://localhost:3000/login', {username, password})
-            const token = response.data.token
+            const response = await axios.post('http://localhost:3000/login', { username, password });
+            const { token, message } = response.data;
     
-            const responseData = await response.json();
-    
-            if (!response.ok) {
-                alert(`Login failed: ${responseData.message}`);
-            } else {
-                //alert("Login successful");
-                navigate(`/root/shop`);  //navigate to shop page
-                window.location.reload();
+            if (token) {
+                alert(message);
                 localStorage.setItem('token', token); 
+                navigate(`/root/shop`);  // Navigate to shop page
+            } else {
+                alert(message);
             }
         } catch (error) {
             console.error('Error:', error);
