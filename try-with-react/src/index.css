@@ -113,3 +113,8 @@ header{
   margin-top: 20px;
   float: right;
 }
+
+.merchant-login {
+  text-align: center;
+  margin-top: 500px; /* Adjust margin as needed */
+}

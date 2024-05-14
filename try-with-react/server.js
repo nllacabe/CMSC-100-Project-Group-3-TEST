@@ -172,6 +172,42 @@ app.post('/login', async (req, res) => {
 
 });
 
+// Route to handle admin login
+app.post('/login-admin', async (req, res) => {
+  try {
+      // Extract user details from request body
+      const {username, password } = req.body;
+
+      // Check if any field is empty
+      if (!username || !password) {
+        return res.status(400).json({ message: 'username and password are required' });
+      }      
+      
+      // Check if user already exists
+      const existingUser = await User.findOne({ username });
+      if (!existingUser) {
+          return res.status(401).json({ message: 'User not found' });
+      }
+
+    // Check if the userType is 'customer'
+    if (existingUser.userType !== 'admin') {
+      return res.status(401).json({ message: 'Access denied: Only admin are allowed to log in' });
+    }
+
+      const isPasswordValid = await bcrypt.compare(password, existingUser.password)
+      if (!isPasswordValid) {
+          return res.status(401).json({ message: 'Incorrect password' });
+      }
+
+      const token = jwt.sign({ userId: existingUser._id }, SECRET_KEY, { expiresIn: '1hr' });
+      res.json({ message: 'Login successful', token });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+
+});
+
 
 
   

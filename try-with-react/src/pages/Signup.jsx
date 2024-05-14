@@ -4,14 +4,6 @@
     import { v4 as uuidv4 } from 'uuid';
 
     export default function Signup() {
-        // const [user, setUser] = useState({
-        //     firstname: '',
-        //     lastname: '',
-        //     username: '',
-        //     email: '',
-        //     password:'',
-        //     userType: 'customer'
-        // });
 
         const [user, setUser]   = useState([])
         const [firstName, setFirstname] = useState('')
@@ -107,10 +99,12 @@
                             </div>
                             <p>Already have an account? <Link to={`/login`}>Login</Link></p>
                             <button type='submit'>Sign Up</button>
-                            {/* <p>or</p> */}
-                            {/* <button type='submit'>Login as Merchant</button> */}
+                            <p>or</p>
+                            <Link to="login-admin">
+                            <button type='button'>Login as Merchant</button>
+                        </Link>
                         </form>
-                    
+
                     </div>
                 </div>
             </div>
