@@ -23,6 +23,10 @@ export default function Login() {
             }
         } catch (error) {
             console.error('Error:', error);
+            // Show specific error message in an alert box
+            if (error.response && error.response.data && error.response.data.message) {
+                alert(error.response.data.message);
+            }    
         }
     };
 

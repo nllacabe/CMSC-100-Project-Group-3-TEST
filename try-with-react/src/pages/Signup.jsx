@@ -63,7 +63,10 @@
                     fetchUsers();
                 })
                 .catch((error) => {
-                    console.log('Unable to register user', error);
+                // Show specific error message in an alert box
+                if (error.response && error.response.data && error.response.data.message) {
+                    alert(error.response.data.message);
+                } 
                 });
         
             axios.post('http://localhost:3000/shoppingCart', newShoppingCart)

@@ -1,38 +1,62 @@
 // import
 import mongoose from 'mongoose';
+// import cors from 'cors';
+// import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+const SECRET_KEY = 'secretkey';
 
 // connect to MongoDB
 await mongoose.connect("mongodb://localhost:27017/FarmToTable")           // database name: FarmToTable
 
 // define and create User model         
+// // define and create User model         
 const User = mongoose.model('User', {
     firstName: {
       type: String,
       required: true
     },
-    middleName: {
-      type: String,
-      default: '' // optional field, empty string if not provided
-    },
     lastName: {
       type: String,
       required: true
     },
-    userType: {
-      type: String,
-      required: true
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true 
-    },
-    password: {
-      type: String,
-      required: true
+      username: {
+        type: String,
+        required: true,
+        unique: true
+      },
+      userType: {
+        type: String,
+        required: true
+      },
+      email: {
+        type: String,
+        required: true,
+        unique: true 
+      },
+      password: {
+        type: String,
+        required: true
+      },
+      shoppingCart: {
+        type: String,   //reference to another schema
     }
-}, 'userData'); // collection name: userData
-
+  }, 'userData'); // collection name
+  
+  //define and create user shopping cart model
+  const ShoppingCart = mongoose.model('ShoppingCart', {
+    _id: {
+      type: String
+    },
+    items: {
+      type: [String]
+    },
+    quantity: {
+      type: [Number]
+    }
+  }, 'shoppingCartUser'); // collection name
+  
 // define and create Product model       
 const Product = mongoose.model('Product', {
     productID: { // added productID (wala sa previous version)
@@ -53,6 +77,9 @@ const Product = mongoose.model('Product', {
     },
     productPrice: { // additional field for price (wala sa docs)
       type: Number,
+    },
+    productImg: {
+      type: String
     }
 }, 'productData'); // collection name: productData
 
@@ -62,15 +89,14 @@ const Order = mongoose.model('Order', {
         type: String,
         unique: true // Ensure transactionID is unique
     },
-    productID: {
-        type: String,
+    productIDs: {
+        type: [String],
     },
     orderQuantity: {
-        type: Number,
+        type: [Number],
     },
     orderStatus: {
         type: Number,
-        enum: [0, 1, 2], // (Int: 0 Pending / 1 Completed / 2 Canceled )
     },
     email: {
         type: String,
@@ -78,38 +104,146 @@ const Order = mongoose.model('Order', {
     dateOrdered: {
         type: Date,
     },
-    time: {
-        type: Date,
+    timeOrdered: {
+        type: String,
     }
 }, 'orderData'); // collection name: orderData
 
 
 
 // function for User --------------------------
-const saveUser = async (req, res) => {                  // post method for saving users
-    if (
-        !req.body.firstName ||
-        // !req.body.middleName ||
-        !req.body.lastName ||
-        !req.body.userType ||
-        !req.body.email ||
-        !req.body.password
-    ){
-        res.json({ success: false, message: 'All required fields must be provided' });
-        return;
-    }
-
-    const newUser = new User(req.body);
-    const savedUser = await newUser.save(); // inorganize ko lang
+const customerSignup = async (req, res) => {                  // post method for saving users
+    try {
+        // Extract user details from request body
+        const { firstName, lastName, userType, username, email, password, shoppingCart } = req.body;
     
-    if (savedUser) {
-        res.json({ success: true, user: savedUser });
-    } else {
-        res.json({ success: false, message: 'Error saving user' });
-    }
-
+        // Check if any field is empty
+        if (!username || !email || !password || !firstName || !lastName) {
+          return res.status(400).json({ message: 'All fields are required' });
+        }      
+          
+        // Check if user already exists
+        const existingEmail = await User.findOne({ email });
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+          return res.status(400).json({ message: 'User already exists' });
+        } else if (existingEmail) {
+          return res.status(400).json({ message: 'Email already exists' });
+        }
     
+        const hashedPassword = await bcrypt.hash(password, 10);  //create hashedPassword
+        // Create new user instance
+        const newUser = new User({ firstName, lastName, username, email, password: hashedPassword, userType, shoppingCart }); // Change password to hashedPassword
+    
+        // Save user to database
+        await newUser.save();
+    
+        // Send response
+        res.status(201).json({ message: 'User created successfully', user: newUser }); // Return the saved user object
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
 };
+
+const customerLogin = async (req, res) => {                  // post method for saving users
+    try {
+        // Extract user details from request body
+        const {username, password } = req.body;
+  
+        // Check if any field is empty
+        if (!username || !password) {
+          return res.status(400).json({ message: 'username and password are required' });
+        }      
+        
+        // Check if user already exists
+        const existingUser = await User.findOne({ username });
+        if (!existingUser) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+  
+      // Check if the userType is 'customer'
+      if (existingUser.userType !== 'customer') {
+        return res.status(401).json({ message: 'Access denied: Only customers are allowed to log in' });
+      }
+  
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password)
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Incorrect password' });
+        }
+  
+        const token = jwt.sign({ userId: existingUser._id }, SECRET_KEY, { expiresIn: '1hr' });
+        res.json({ message: 'Login successful', token });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+  
+};
+
+const adminLogin = async (req, res) => {                  // post method for saving users
+    try {
+        // Extract user details from request body
+        const {username, password } = req.body;
+  
+        // Check if any field is empty
+        if (!username || !password) {
+          return res.status(400).json({ message: 'username and password are required' });
+        }      
+        
+        // Check if user already exists
+        const existingUser = await User.findOne({ username });
+        if (!existingUser) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+  
+      // Check if the userType is 'customer'
+      if (existingUser.userType !== 'admin') {
+        return res.status(401).json({ message: 'Access denied: Only admin are allowed to log in' });
+      }
+  
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password)
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Incorrect password' });
+        }
+  
+        const token = jwt.sign({ userId: existingUser._id }, SECRET_KEY, { expiresIn: '1hr' });
+        res.json({ message: 'Login successful', token });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+  
+};
+const getUsers = async (req, res) => {                  // post method for saving users
+    try {
+        const users = await User.find()
+        res.status(201).json(users)
+      }
+    
+      catch (error){
+        res.status(500).json({error: "Unable to get user"})
+      }
+};
+const addUserShoppingCart = async (req, res) => {                  // post method for saving users
+    try {
+        const { _id, items, quantity } = req.body;
+  
+        // Create new shopping cart instance
+        const newShoppingCart = new ShoppingCart({_id, items, quantity });
+  
+        // Save shopping cart to database
+        await newShoppingCart.save();
+  
+        // Send response
+        res.status(201).json({ message: 'Shopping cart created successfully', shoppingCart: newShoppingCart }); // Return the saved shopping cart object
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
 // --------------------------------------------
 
 // function for Product -----------------------
@@ -165,13 +299,13 @@ const removeProduct = async (req, res) => {    //delete a product by product ID
 // functions for Order ------------------------
 const saveOrder = async (req, res) => {                 // post method for saving orders
     if (
-        !req.body.transactionID || 
-        !req.body.productID ||
+        !req.body.transactionID ||
+        !req.body.productIDs ||
         !req.body.orderQuantity ||
         !req.body.orderStatus ||
         !req.body.email ||
         !req.body.dateOrdered ||
-        !req.body.time
+        !req.body.timeOrdered
     ){
         res.json({ success: false, message: 'All required fields must be provided' });
         return;
@@ -201,10 +335,12 @@ const getAllOrders = async (req, res) => {              // get method for gettin
         res.json({});
     }
 };
+
+
 // --------------------------------------------
 
 export {
-    saveUser, 
     saveProduct, updateQty, getAllProducts,  removeProduct,
-    saveOrder, updateStatus, getAllOrders
+    saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
+    addUserShoppingCart, adminLogin
 }

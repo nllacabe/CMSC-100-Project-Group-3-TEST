@@ -1,7 +1,7 @@
 import { Outlet, Link } from 'react-router-dom';
 
 export default function Root() {
- //add handle signout
+
     return (
       <>
       <header>
@@ -9,8 +9,9 @@ export default function Root() {
           <h1>Farm-To-Table</h1>
           <nav>
             <ul className="navbar-links">
-                <li><Link to={`shop`}>SHOP</Link></li>
-                <li><Link to={`/orders`}>ORDERS</Link></li>
+                <li><Link to={`/root/shop`}>SHOP</Link></li>
+                <li><Link to={`/root/orders`}>ORDERS</Link></li>
+                <li><Link to={`/root/profile`}>PROFILE</Link></li>
             </ul>
           </nav>
         </section>
