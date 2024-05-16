@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 
 export default function Shop() {
 
-  const [ items, setItems ] = useState([])
+  const [items, setItems] = useState([])
   const [totalItems, setTotal] = useState(0);             // useState for totalItems (initial is 0)
   const [totalPrice, setPrice] = useState(0);
   const [cart, setCart] = useState([]);                   // useState for cart (initial is an empty list)

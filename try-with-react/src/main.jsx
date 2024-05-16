@@ -6,12 +6,14 @@ import './index.css';
 import Root from './pages/Root';
 import Shop from './pages/Shop';
 import OrderSummary from './pages/OrderSummary';
+import Orders from './pages/Orders';
 
 
 const router = createBrowserRouter([
   { path: '/', element: <Root />, children: [
     { path: '/', element: <Shop /> },
-    { path: '/order-summary', element: <OrderSummary /> }
+    { path: '/order-summary', element: <OrderSummary /> },
+    { path: '/orders', element: <Orders /> }
   ]}
 ])
 
