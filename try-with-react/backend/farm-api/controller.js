@@ -181,6 +181,7 @@ const customerLogin = async (req, res) => {                  // post method for 
   
 };
 
+
 const adminLogin = async (req, res) => {                  // post method for saving users
     try {
         // Extract user details from request body
@@ -225,6 +226,57 @@ const getUsers = async (req, res) => {                  // post method for savin
         res.status(500).json({error: "Unable to get user"})
       }
 };
+
+// const authenticateToken = (req, res, next) => {
+//   const token = req.header('Authorization')?.split(' ')[1];
+//   if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
+
+//   try {
+//     const decoded = jwt.verify(token, SECRET_KEY);
+//     req.user = decoded;
+//     next();
+//   } catch (error) {
+//     res.status(400).json({ message: 'Invalid token.' });
+//   }
+// };
+
+// const findUser = async (req,res) => {
+//   try {
+//     const user = await User.findById(req.user.userId).select('-password'); // Exclude the password field
+//     if (!user) return res.status(404).json({ message: 'User not found' });
+//     res.json(user);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// }
+
+
+// Middleware to authenticate token
+const authenticateToken = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+  jwt.verify(token, SECRET_KEY, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
+
+// Endpoint to get the logged-in user's information
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('-password');
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
 const addUserShoppingCart = async (req, res) => {                  // post method for saving users
     try {
         const { _id, items, quantity } = req.body;
@@ -342,5 +394,5 @@ const getAllOrders = async (req, res) => {              // get method for gettin
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin
+    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile
 }
