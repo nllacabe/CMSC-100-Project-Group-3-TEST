@@ -1,3 +1,4 @@
+
 // import
 import mongoose from 'mongoose';
 // import cors from 'cors';
@@ -294,8 +295,6 @@ const addUserShoppingCart = async (req, res) => {                  // post metho
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
-
 // --------------------------------------------
 
 // function for Product -----------------------
@@ -388,11 +387,36 @@ const getAllOrders = async (req, res) => {              // get method for gettin
     }
 };
 
+const updateUser = async (req, res) => {
+  const { firstName, lastName, username, email } = req.body;
+    
+  try {
+      // Find the user by their ID (you may need to adjust this based on your application's logic)
+      const user = await User.findById(req.user._id);
 
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Update user fields if they're provided in the request body
+      if (firstName) user.firstName = firstName;
+      if (lastName) user.lastName = lastName;
+      if (username) user.username = username;
+      if (email) user.email = email;
+
+      // Save the updated user information
+      await user.save();
+
+      res.json({ message: 'User information updated successfully' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+  }
+};
 // --------------------------------------------
 
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile
+    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser
 }

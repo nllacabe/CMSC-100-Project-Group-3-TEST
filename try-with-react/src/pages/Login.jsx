@@ -31,8 +31,8 @@ export default function Login() {
     };
 
     return (
-        <div className='App'>
-            <div className='Signup'>
+        <div className='SignupPage'>
+            <div>
                 <div className='Signup-Card'>
                     <form onSubmit={handleSubmit}>
                         <center><h2>Login</h2></center>

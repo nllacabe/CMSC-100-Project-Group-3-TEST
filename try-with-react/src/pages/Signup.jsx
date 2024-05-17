@@ -80,8 +80,8 @@
         
 
         return (
-            <div className='App'>
-                <div className='Signup'>
+            <div className='SignupPage'>
+                <div>
                     <div className='Signup-Card'>
                         <form onSubmit={handleSubmit}>
                             <center><h2>Signup</h2></center>

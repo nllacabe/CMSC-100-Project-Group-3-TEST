@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Routes } from 'react-router-dom';
@@ -12,6 +13,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import RootAdmin from './pages/RootAdmin';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
 import Listings from './pages/Listings';
@@ -42,16 +44,13 @@ const router = createBrowserRouter([
   { path: '/order-summary', element: <OrderSummary />},
   // admin
   { path: '/admin-dashboard', element: <AdminDashboard /> }, // route for the admin dashboard
-  // { path: '/root-admin', element: <RootAdmin />, children: [
-  //   { path: 'users', element: <Users /> }, // route for user management
-  //   { path: 'listings', element: <Listings /> }, // route for product listings
-  //   { path: 'fulfillment', element: <Fulfillment /> }, // route for order fulfillment
-  //   { path: 'sales', element: <Sales /> },
-  //   // { path: 'profile', element: <Profile />},
+  { path: '/root-admin', element: <RootAdmin />, children: [
+    { path: 'users', element: <Users /> }, // route for user management
+    { path: 'listings', element: <Listings /> }, // route for product listings
+    { path: 'fulfillment', element: <Fulfillment /> }, // route for order fulfillment
+    { path: 'sales', element: <Sales /> },
   //   // Add other children routes of Root if needed
-  // ]},
-
-
+  ]},
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
