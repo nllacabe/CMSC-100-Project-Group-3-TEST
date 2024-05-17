@@ -1,7 +1,7 @@
 
 import { Outlet, Link } from 'react-router-dom';
 
-export default function Root() {
+export default function AdminRoot() {
 
     return (
       <>

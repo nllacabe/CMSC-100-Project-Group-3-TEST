@@ -1,5 +1,7 @@
+
 body{
   margin: 0;
+  padding: 0;
 }
 
 header{
@@ -149,4 +151,32 @@ header{
 
 .orders-container{
   
+}
+
+
+.user-div {
+  padding-top: 80px;
+
+}
+
+.fulfillment-main {
+  display: flex;
+  flex-direction: row;
+  padding-top: 150px;
+}
+
+.fulfillment-order-list {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.fulfillment-product-list {
+  /* display: flex; */
+  position: fixed;
+  top: 50;
+  right: 0;
+  width: 40%;
+  height: 100%;
+  background-color: gray;
 }
