@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -23,7 +22,7 @@ const Users = () => {
     }, []);
 
     return (
-        <div>
+        <div className='container'>
             <h2>User Accounts</h2>
             {loading ? (
                 <p>Loading...</p>
