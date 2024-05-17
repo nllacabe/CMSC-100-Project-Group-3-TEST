@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
@@ -9,7 +10,7 @@ export default function Shop() {
   const [cart, setCart] = useState([]);                   // useState for cart (initial is an empty list)
 
   useEffect(() => {
-    fetch('http://localhost:3001/get-all-products')
+    fetch('http://localhost:3000/get-all-products')
       .then(response => response.json())
       .then(body => {
         setItems(body)

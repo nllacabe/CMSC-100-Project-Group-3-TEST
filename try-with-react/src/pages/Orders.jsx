@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ export default function Orders() {
   const [idToCancel, setIdToCancel] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/get-all-orders')
+    fetch('http://localhost:3000/get-all-orders')
       .then(response => response.json())
       .then(body => {
         setOrders(body.filter(order => order.email == "email@gmail.com"))
@@ -24,7 +25,7 @@ export default function Orders() {
     //   })
 
     if(orderCanceled){
-        fetch('http://localhost:3001/update-status',
+        fetch('http://localhost:3000/update-status',
         {
           method: 'POST',
           headers: {

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -13,7 +14,7 @@ export default function OrderSummary() {
 
   useEffect(() => {
     if(orderPlaced){
-      fetch('http://localhost:3001/save-order',
+      fetch('http://localhost:3000/save-order',
       {
         method: 'POST',
         headers: {
@@ -36,7 +37,7 @@ export default function OrderSummary() {
   return (
     <>
      <div className="order-summary-container">
-        <button><Link to={`/`}>Back To Cart</Link></button>
+        <button><Link to={`/root/shop`}>Back To Cart</Link></button>
         <p>Total Quantity of Items: {totalItems}</p>
         <h1>Order Summary</h1>
         <table>

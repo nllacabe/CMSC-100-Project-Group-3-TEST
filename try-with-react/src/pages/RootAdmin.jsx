@@ -7,12 +7,13 @@ export default function Root() {
       <>
       <header>
         <section className="navbar-content">
-          <h1>Farm-To-Table</h1>
+          <h1>Farm-To-Table-Admin</h1>
           <nav>
             <ul className="navbar-links">
-                <li><Link to={`/root/shop`}>SHOP</Link></li>
-                <li><Link to={`/root/orders`}>ORDERS</Link></li>
-                <li><Link to={`/root/profile`}>PROFILE</Link></li>
+                <li><Link to={`/root-admin/users`}>USERS</Link></li>
+                <li><Link to={`/root-admin/listings`}>LISTINGS</Link></li>
+                <li><Link to={`/root-admin/fulfillment`}>FULFILLMENT</Link></li>
+                <li><Link to={`/root-admin/sales`}>SALES</Link></li>
             </ul>
           </nav>
         </section>
