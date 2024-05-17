@@ -141,19 +141,70 @@ header{
 }
 
 
-
-
-
 .orders-main{
   padding: 120px 120px 0 120px;
 }
 
-.orders-container{
-  
+.container{
+  padding-top: 80px;
 }
 
 
 .user-div {
   padding-top: 80px;
 
+}
+
+
+/* CSS FOR SIGNUP/LOGIN */
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+/* html {
+  background-color: #FFCF58;
+} */
+
+.SignupPage {
+  background-color:  #FFCF58;
+  height: 100vh; /* Ensure the background covers the full height */
+}
+
+.LoginAdmin {
+  background-color:  #596418;
+  height: 100vh; /* Ensure the background covers the full height */
+}
+
+
+.Signup-Card {
+  background-color: white;
+  height: 600px;
+  width: 450px;
+  justify-content: center;
+  border-radius: 50px; /* Adding rounded corners */
+  display: flex;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+form {
+  width: 80%;
+
+
+}
+.form-group {
+  padding: 5px;
+  justify-content: center;
+}
+
+input {
+
+  padding: 7px;
+  width: 90%;
 }

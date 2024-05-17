@@ -2,7 +2,7 @@ import {
     saveProduct, updateQty, removeProduct, getAllProducts, 
     saveOrder, updateStatus, getAllOrders, getUsers, customerLogin,
     customerSignup, addUserShoppingCart, adminLogin, authenticateToken,
-    getUserProfile
+    getUserProfile, updateUser
 } from './controller.js'
 
 
@@ -20,6 +20,7 @@ export default function router(app) {
   app.post('/signup', customerSignup)   
   app.get('/signup', getUsers)                 // user
   app.get('/profile', authenticateToken, getUserProfile);
+  app.post('/profileEdit', updateUser)
   app.post('/shoppingCart',  addUserShoppingCart)
   app.post('/login', customerLogin)
   app.post('/login-admin', adminLogin)

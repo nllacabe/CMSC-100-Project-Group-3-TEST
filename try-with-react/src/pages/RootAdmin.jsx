@@ -1,6 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
 
-export default function Root() {
+export default function RootAdmin() {
 
     return (
       <>
@@ -9,6 +9,7 @@ export default function Root() {
           <h1>Farm-To-Table-Admin</h1>
           <nav>
             <ul className="navbar-links">
+                <li><Link to={'/admin-dashboard'}>DASHBOARD</Link></li>
                 <li><Link to={`/root-admin/users`}>USERS</Link></li>
                 <li><Link to={`/root-admin/listings`}>LISTINGS</Link></li>
                 <li><Link to={`/root-admin/fulfillment`}>FULFILLMENT</Link></li>

@@ -31,8 +31,8 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className='App'>
-            <div className='Signup'>
+        <div className='LoginAdmin'>
+            <div>
                 <div className='Signup-Card'>
                     <form onSubmit={handleSubmit}>
                         <center><h2>Admin Login</h2></center>
