@@ -1,0 +1,47 @@
+[
+    {
+        "transactionID": "ABC1",
+        "productIDs": ["1", "3", "5"],
+        "orderQuantity": [5,4,3],
+        "orderStatus": 0,
+        "email": "test1@up.edu.ph",
+        "dateOrdered": "2024-05-04T18:00:00Z",
+        "time": "2024-05-04T18:00:00Z"
+    },
+    {
+        "transactionID": "ABC2",
+        "productIDs": ["2", "4"],
+        "orderQuantity": [2,6],
+        "orderStatus": 0,
+        "email": "test2@up.edu.ph",
+        "dateOrdered": "2024-05-04T18:00:00Z",
+        "time": "2024-05-04T18:00:00Z"
+    },
+    {
+        "transactionID": "ABC3",
+        "productIDs": ["7", "2", "9", "8"],
+        "orderQuantity": [1,8,10,3],
+        "orderStatus": 0,
+        "email": "test3@up.edu.ph",
+        "dateOrdered": "2024-05-04T18:00:00Z",
+        "time": "2024-05-04T18:00:00Z"
+    },
+    {
+        "transactionID": "ABC4",
+        "productIDs": ["1"],
+        "orderQuantity": [15],
+        "orderStatus": 0,
+        "email": "test4@up.edu.ph",
+        "dateOrdered": "2024-05-04T18:00:00Z",
+        "time": "2024-05-04T18:00:00Z"
+    },
+    {
+        "transactionID": "ABC5",
+        "productIDs": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+        "orderQuantity": [1,1,1,1,1,1,1,1,1,1],
+        "orderStatus": 0,
+        "email": "test5@up.edu.ph",
+        "dateOrdered": "2024-05-04T18:00:00Z",
+        "time": "2024-05-04T18:00:00Z"
+    }
+    ]

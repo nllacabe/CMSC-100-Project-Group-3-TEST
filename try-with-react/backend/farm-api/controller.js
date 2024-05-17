@@ -1,3 +1,4 @@
+
 // import
 import mongoose from 'mongoose';
 // import cors from 'cors';
@@ -294,8 +295,6 @@ const addUserShoppingCart = async (req, res) => {                  // post metho
         res.status(500).json({ error: 'Internal server error' });
     }
 };
-
-
 // --------------------------------------------
 
 // function for Product -----------------------
@@ -388,7 +387,6 @@ const getAllOrders = async (req, res) => {              // get method for gettin
     }
 };
 
-
 const updateUser = async (req, res) => {
   const { firstName, lastName, username, email } = req.body;
     
@@ -415,9 +413,6 @@ const updateUser = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 };
-
-
-
 // --------------------------------------------
 
 export {
