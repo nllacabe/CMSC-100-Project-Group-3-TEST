@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import Popup from './Popup';
 
 export default function Shop() {
 
@@ -7,6 +8,7 @@ export default function Shop() {
   const [totalItems, setTotal] = useState(0);             // useState for totalItems (initial is 0)
   const [totalPrice, setPrice] = useState(0);
   const [cart, setCart] = useState([]);                   // useState for cart (initial is an empty list)
+  const [showPopup, setShowPopup] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3001/get-all-products')
@@ -42,45 +44,69 @@ export default function Shop() {
     setPrice(totalPrice-(deleteItem.productPrice*deleteItem.count));
   }
 
+  function openPopup(index){
+    setShowPopup(index);
+  }
+
+  function closePopup(){
+    setShowPopup(null);
+  }
+
   const stringifiedCart = JSON.stringify(cart);
 
   return (
-    <>
-      <main>
-        <div className="item-part">
-          <div className="card-container">
-            {items.map((item) =>
-                <div className="card">
-                  <img src={item.productImg} className="product-img"></img>
-                  <p>{item.productID}</p>
-                  <p>{item.productName}</p>
-                  <p>₱{item.productPrice}.00</p>
-                  <button onClick={() => addToCart(item)}>Add To Cart</button>
+    <main>
+      <div className="products-part">
+        <div className="view-container">
+          <div className="view">
+            <span>Order by:</span>
+            <button>Ascending</button>
+            <button>Descending</button>
+
+          </div>
+          <div className="view">
+            <span>Sort by:</span>
+            <button>Name</button>
+            <button>Type</button>
+            <button>Price</button>
+            <button>Quantity</button>
+          </div>
+        </div>
+        <div className="product-container">
+          {items.map((item, index) =>
+              <div className="product">
+                <img src={item.productImg} className="product-img"></img>
+                <p className="product-name">{item.productName}</p>
+                <p className="product-price">P{item.productPrice}.00</p>
+                <button onClick={() => openPopup(index)} className="product-desc">View description &gt;</button>
+                <div className="popup">
+                  {showPopup == index && <Popup description={item.productDescription} closePopup={closePopup} />}
                 </div>
-            )}
-          </div>
+                <button onClick={() => addToCart(item)} className="product-add-btn">Add To Cart</button>
+              </div>
+          )}
         </div>
-        <div className="cart-part">
-          <h2>Shopping Cart</h2>
-          <p className="total">Total items: {totalItems}</p>
-          {cart.map((prod) => {
-            return <div key = {prod.productID} className="cart-item">
-              <div className="items-left">
-                  <p className="item-name">{prod.productName}&nbsp;</p>
-                  <p className="item-price">- ${prod.productPrice}&nbsp;</p>
-              </div>
-              <div className="items-right">
-                  <p className="item-count">x {prod.count}</p>
-                  <button className="delete-button" onClick={() => deleteFromCart(prod)}>X</button>
-              </div>
+      </div>
+      <div className="cart">
+        <p className="cart-title">Shopping Cart</p>
+        {cart.map((prod) => {
+          return <div key = {prod.productID} className="cart-item">
+            <div className="cart-left">
+                <p className="cart-name">{prod.productName}&nbsp;</p>
+                <p className="cart-price">- P{prod.productPrice}.00</p>
             </div>
-          })}
-          <div className="total-and-button">
-            <p>Subtotal: {totalPrice}</p>
-            <button className="checkout-button"><Link to={`/order-summary?list=${stringifiedCart}&count=${totalItems}&price=${totalPrice}`}>Check Out</Link></button>
+            <div className="cart-right">
+                <p className="cart-count">x {prod.count}</p>
+                <button className="cart-delete-btn" onClick={() => deleteFromCart(prod)}>X</button>
+            </div>
           </div>
-        </div>
-      </main>
-    </>
+        })}
+      </div>
+      <div className="cart-info">
+        <p className="cart-total">Total items: {totalItems}</p>
+        <p className="cart-subtotal">Subtotal: Php {totalPrice}.00</p>
+        <button hidden={!cart.length > 0} className="cart-checkout-btn"><Link to={`/order-summary?list=${stringifiedCart}&count=${totalItems}&price=${totalPrice}`} className="cart-checkout-text">Check Out</Link></button>
+      </div>
+    </main>
   )
 }

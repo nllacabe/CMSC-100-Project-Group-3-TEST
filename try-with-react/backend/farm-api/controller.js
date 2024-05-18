@@ -68,6 +68,9 @@ const Order = mongoose.model('Order', {
     productIDs: {
         type: [String],
     },
+    productNames: {
+        type: [String],
+    },
     orderQuantity: {
         type: [Number],
     },
@@ -169,6 +172,7 @@ const saveOrder = async (req, res) => {                 // post method for savin
     if (
         !req.body.transactionID ||
         !req.body.productIDs ||
+        !req.body.productNames ||
         !req.body.orderQuantity ||
         !req.body.orderStatus ||
         !req.body.email ||

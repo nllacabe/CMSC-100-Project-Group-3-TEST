@@ -1,6 +1,44 @@
+@font-face{
+  font-family: "Roca Heavy";
+  src: url("fonts/Roca-Heavy.ttf");
+}
+
+@font-face{
+  font-family: "Roca Black";
+  src: url("fonts/Roca-Black.ttf");
+}
+
+@font-face{
+  font-family: "Roca Bold";
+  src: url("fonts/Roca-Bold.ttf");
+}
+
+@font-face{
+  font-family: "Roca Regular";
+  src: url("fonts/Roca-Regular.ttf");
+}
+
+@font-face{
+  font-family: "Roca Light";
+  src: url("fonts/Roca-Light.ttf");
+}
+
+@font-face{
+  font-family: "Lato Bold";
+  src: url("fonts/Lato-Bold.ttf");
+}
+
+@font-face{
+  font-family: "Lato Regular";
+  src: url("fonts/Lato-Regular.ttf");
+}
+
 body{
   margin: 0;
+  background-color: #FEF1CF;
 }
+
+/*-------------- NAVBAR --------------*/
 
 header{
   position: fixed;
@@ -8,13 +46,31 @@ header{
   z-index: 1000;
 }
 
-.navbar-content{
+.navbar-container{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(211, 211, 211);
-  padding-left: 120px;
-  padding-right: 120px;
+  padding: 5px 120px 5px 120px;
+  background-color: #FEF1CF;
+  box-shadow: 0px -10px 20px rgba(0, 0, 0, 1);
+}
+
+.logo-container{
+  display: flex;
+  align-items: center;
+}
+
+.logo-img{
+  width: 55px;
+  height: auto;
+}
+
+.logo-title{
+  font-family: "Roca Heavy";
+  font-size: 25px;
+  color: #596418;
+  margin-block-start: 0.8em;
+  margin-left: 15px;
 }
 
 .navbar-links{
@@ -25,82 +81,209 @@ header{
 }
 
 .navbar-links li {
+  font-family: "Roca Black";
+  font-size: 20px;
   padding: 0px 50px 0px 50px;
 }
 
-.item-part{
+.navbar-link{
+  color: #596418;
+  text-decoration: none;
+}
+
+.navbar-link:hover{
+  text-decoration: underline;
+}
+
+/*------------------------------------*/
+
+
+/*------------- PRODUCTS -------------*/
+
+.products-part{
   width: calc(100% - 400px);
   float: left;
 }
 
-.card-container{            /* the section that contains the cards */
-  padding-top: 120px;
-  padding-left: 30px;
-  padding-right: 80px;
-  padding-bottom: 80px;
+.view-container{
+  padding: 140px 0px 0px 100px;
+  display: flex;
+}
+
+.view{
+  margin-right: 20px;
+}
+
+.view span{
+  font-family: "Lato Bold";
+  margin-block-end: 5px;
+  margin-right: 10px;
+}
+
+.view button{
+  margin-right: 10px;
+  font-family: "Lato Regular";
+  font-size: 14px;
+  color: white;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 6px;
+  background-color: #F29400;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.view button:hover{
+  background-color: #596418;
+  cursor: pointer;
+}
+
+.view button:focus{
+  background-color: #596418;
+}
+
+.product-container{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
   align-items: flex-start;
+  gap: 23px;
+  padding: 50px 80px 80px 30px;
 }
 
-.card{                      /* the individual card */
-  width: 100px;
+.product{
+  width: 110px;
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0px 0px 15px rgba(91, 88, 93, 0.266);
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); */
+  background-color: #FFCF58;
   overflow-wrap: break-word;
-  text-align: center;
 }
-
-.cart-part{
-  position: fixed;
-  top: 50;
-  right: 0;
-  width: 400px;
-  height: 77%;
-  background-color: gray;
-  padding: 10px 30px 30px 30px;
-  margin-top: 100px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
-  overflow-y: auto;
-}
-
-/* h2{
-  position: fixed;
-} */
 
 .product-img{
   width: 100%;
 }
 
-.cart-item{                     /* individual box of the items in the cart */
-  background-color: rgb(188, 188, 188);
+.product-name{
+  font-family: "Roca Bold";
+  font-size: 18px;
+  margin-block-end: 0;
+}
+
+.product-price{
+  font-family: "Roca Light";
+  margin-block-start: 5px;
+  margin-block-end: 15px;
+}
+
+.product-desc{
+  font-family: "Roca Light";
+  font-size: 13px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  border: 0 none;
+  text-align: left;
+  background-color: transparent;
+  padding: 0;
+}
+
+.product-desc:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.product-add-btn{
+  font-family: "Lato Regular";
+  font-size: 15px;
+  color: white;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  background-color: #F29400;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.product-add-btn:hover{
+  background-color: #596418;
+  cursor: pointer;
+}
+
+.popup{
+  font-family: "Lato Regular";
+  margin-block-end: 20px;
+  z-index: 9999999;
+  font-size: 13px;
+}
+
+.close-popup-btn{
+  font-family: "Lato Regular";
+  color: rgb(204, 6, 6);
+  border: 0 none;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 0;
+}
+
+.close-popup-btn:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/*------------------------------------*/
+
+
+/*--------------- CART ---------------*/
+
+.cart{
+  position: fixed;
+  top: 140;
+  right: 0;
+  bottom: 90px;
+  width: 400px;
+  height: 450px;
+  background-color: #985B40;
+  padding: 10px 30px 10px 30px;
+  border-top-left-radius: 15px;
+  overflow-y: auto;
+}
+
+.cart-title{
+  font-family: "Roca Black";
+  font-size: 20px;
+  color: #FEF1CF;
+}
+
+.cart-item{
+  background-color: #FEF1CF;
   padding: 3px 15px;
-  margin-top: 20px;
+  margin-top: 15px;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-.items-left{                /* name and price */
+.cart-left{
   display: flex;
   align-items: center
 }
 
-.items-right{               /* quantity and delete button */
+.cart-name{
+  font-family: "Roca Bold";
+}
+
+.cart-price{
+  font-family: "Roca Light";
+}
+
+.cart-right{
   display: flex;
   align-items: center;
 }
 
-.item-count{
-  font-family: "LS Reg";
-  text-align: right;
+.cart-count{
+  font-family: "Roca Light";
 }
 
-.delete-button{                 /* delete button */
+.cart-delete-btn{
   cursor: pointer;
   background-color: white;
   text-align: right;
@@ -109,22 +292,137 @@ header{
   transition: background-color 0.3s ease-in-out;
 }
 
-.delete-button:hover{          /* delete button on hover */
+.cart-delete-btn:hover{
   background-color: red;
 }
 
-.total-and-button{
-  margin-top: 20px;
+.cart-info{
+  position: fixed;
+  right: 0;
+  bottom: 25px;
+  width: 400px;
+  background-color: #985B40;
+  padding: 10px 30px 10px 30px;
+  z-index: 999; 
+  border-bottom-left-radius: 15px;
   display: flex;
   justify-content: space-between;
 }
 
+.cart-total{
+  font-family: "Lato Regular";
+  color: #FEF1CF;
+}
+
+.cart-subtotal{
+  font-family: "Lato Regular";
+  color: #FEF1CF;
+}
+
+.cart-checkout-btn{
+  font-family: "Lato Bold";
+  font-size: 15px;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  background-color: #FFCF58;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cart-checkout-text{
+  text-decoration: none;
+  color: black;
+}
+
+.cart-checkout-btn:hover{
+  background-color: #C8C467;
+  cursor: pointer;
+}
+
+/*------------------------------------*/
 
 
+/*---------- ORDER SUMMARY -----------*/
 
+.summary-container{
+  padding: 140px 120px 50px 120px;
+}
 
-.order-summary-container{
-  padding: 120px 120px 0 120px;
+.summary-back-btn{
+  font-family: "Lato Regular";
+  font-size: 15px;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  background-color: #F29400;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.summary-back-text{
+  color: white;
+  text-decoration: none;
+}
+
+.summary-back-btn:hover{
+  background-color: #596418;
+  cursor: pointer;
+}
+
+.summary-title{
+  font-family: "Roca Black";
+  font-size: 25px;
+}
+
+.whole-container{
+  display: flex;
+}
+
+.table-container{
+  flex: 2;
+}
+
+.summary-table{
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  font-family: "Lato Regular";
+}
+
+.summary-table th:nth-child(1), .summary-table td:nth-child(1){
+  width: 50px;
+}
+
+.summary-table th, .summary-table td{
+  padding: 7px;
+}
+
+.summary-table th{
+  background-color: #596418;
+  color: white;
+}
+
+.summary-table td{
+  background-color: #C8C467;
+}
+
+.summary-table th:first-of-type{
+  border-top-left-radius: 10px;
+}
+
+.summary-table th:last-of-type{
+  border-top-right-radius: 10px;
+}
+
+.summary-table tr:last-of-type td:first-of-type{
+  border-bottom-left-radius: 10px;
+}
+
+.summary-table tr:last-of-type td:last-of-type{
+  border-bottom-right-radius: 10px;
+}
+
+.summary-table tr:nth-child(odd) > td{
+  background-color: rgba(200, 196, 103, 0.5);
 }
 
 .square-image {
@@ -139,14 +437,109 @@ header{
   height: 100%;
 }
 
+.info-container{
+  flex: 1;
+  margin-left: 50px;
+}
+
+.qty-label, .price-label, .mop-label{
+  font-family: "Lato Regular";
+}
+
+.qty-value, .price-value, .mop-value{
+  font-family: "Lato Bold";
+}
+
+.place-order-btn{
+  font-family: "Lato Bold";
+  font-size: 18px;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  color: white;
+  background-color: #985B40;
+  transition: background-color 0.3s ease-in-out;
+  float: right;
+}
+
+.place-order-btn:hover{
+  background-color: #F29400;
+  color: white;
+  cursor: pointer;
+}
+
+/*------------------------------------*/
 
 
-
+/*-------------- ORDERS --------------*/
 
 .orders-main{
-  padding: 120px 120px 0 120px;
+  padding: 140px 120px 0 120px;
+}
+
+.orders-title{
+  font-family: "Roca Black";
+  font-size: 25px;
 }
 
 .orders-container{
-  
+  margin-bottom: 50px;
+  width: 80%;
 }
+
+.order{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+}
+
+.order-pending{
+  background-color: #f6c87e;
+}
+
+.order-confirmed{
+  background-color: #C8C467;
+}
+
+.order-cancelled{
+  background-color: #f3ae90;
+}
+
+.order-label{
+  font-family: "Lato Regular";
+}
+
+.order-value{
+  font-family: "Lato Bold";
+}
+
+.order-items{
+  margin-top: 5px;
+}
+
+.cancel-order-btn{
+  font-family: "Lato Bold";
+  font-size: 15px;
+  color: black;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  background-color: #FEF1CF;
+  transition: background-color 0.3s ease-in-out;
+  float: right;
+}
+
+.cancel-order-btn:hover{
+  background-color: #F29400;
+  cursor: pointer;
+}
+
+.cancel-order-btn:disabled{
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(125, 125, 125, 0.5);
+  cursor: not-allowed;
+}
+
+/*------------------------------------*/
