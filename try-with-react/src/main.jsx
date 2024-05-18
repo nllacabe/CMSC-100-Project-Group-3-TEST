@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Routes } from 'react-router-dom';
@@ -51,6 +50,8 @@ const router = createBrowserRouter([
     { path: 'sales', element: <Sales /> },
   //   // Add other children routes of Root if needed
   ]},
+
+
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

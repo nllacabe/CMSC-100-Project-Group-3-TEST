@@ -1,4 +1,3 @@
-
 // import
 import mongoose from 'mongoose';
 // import cors from 'cors';
@@ -255,14 +254,22 @@ const getUsers = async (req, res) => {                  // post method for savin
 
 // Middleware to authenticate token
 const authenticateToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.sendStatus(401);
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+
+  if (!token) {
+      return res.status(401).json({ message: 'Access denied. No token provided.' });
+  }
+
   jwt.verify(token, SECRET_KEY, (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
+      if (err) {
+          return res.status(403).json({ message: 'Invalid token.' });
+      }
+      req.user = { userId: user.userId };  // Explicitly set userId in req.user
+      next();
   });
 };
+
 
 // Endpoint to get the logged-in user's information
 const getUserProfile = async (req, res) => {
@@ -295,6 +302,8 @@ const addUserShoppingCart = async (req, res) => {                  // post metho
         res.status(500).json({ error: 'Internal server error' });
     }
 };
+
+
 // --------------------------------------------
 
 // function for Product -----------------------
@@ -387,12 +396,18 @@ const getAllOrders = async (req, res) => {              // get method for gettin
     }
 };
 
+
 const updateUser = async (req, res) => {
   const { firstName, lastName, username, email } = req.body;
-    
+
   try {
-      // Find the user by their ID (you may need to adjust this based on your application's logic)
-      const user = await User.findById(req.user._id);
+      // Ensure req.user is available and has _id
+      if (!req.user || !req.user.userId) {
+          return res.status(401).json({ message: 'Unauthorized' });
+      }
+
+      // Find the user by their ID
+      const user = await User.findById(req.user.userId);
 
       if (!user) {
           return res.status(404).json({ message: 'User not found' });
@@ -413,6 +428,10 @@ const updateUser = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
+
 // --------------------------------------------
 
 export {

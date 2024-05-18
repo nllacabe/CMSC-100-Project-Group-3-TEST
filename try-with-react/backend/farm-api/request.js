@@ -23,22 +23,10 @@ import needle from 'needle';
 //     console.log(res.body)
 // })
 
-needle.post('http://localhost:3001/save-order', {
-    transactionID: "ABC1",
-    productIDs: ["1", "2", "3"],
-    orderQuantity: [5,4,3],
-    orderStatus: 0,            // (Int: 0 Pending / 1 Completed / 2 Canceled )
-    email: "adpaleracio@up.edu.ph",
-    dateOrdered: "2024-05-04T18:00:00Z",
-    time: "2024-05-04T18:00:00Z"
-}, (err, res) =>{
-    console.log(res.body)
-})
-
-// needle.post('http://localhost:3001/save-order', {
-//     transactionID: "ABC2",
-//     productIDs: ["1", "2"],
-//     orderQuantities: [6,7],
+// needle.post('http://localhost:3000/save-order', {
+//     transactionID: "ABC",
+//     productID: "1",
+//     orderQuantity: 1,
 //     orderStatus: 0,            // (Int: 0 Pending / 1 Completed / 2 Canceled )
 //     email: "adpaleracio@up.edu.ph",
 //     dateOrdered: "2024-05-04T18:00:00Z",
@@ -46,32 +34,6 @@ needle.post('http://localhost:3001/save-order', {
 // }, (err, res) =>{
 //     console.log(res.body)
 // })
-
-// needle.post('http://localhost:3001/save-order', {
-//     transactionID: "ABC3",
-//     productIDs: ["1", "3"],
-//     orderQuantities: [2,5],
-//     orderStatus: 0,            // (Int: 0 Pending / 1 Completed / 2 Canceled )
-//     email: "adpaleracio@up.edu.ph",
-//     dateOrdered: "2024-05-04T18:00:00Z",
-//     time: "2024-05-04T18:00:00Z"
-// }, (err, res) =>{
-//     console.log(res.body)
-// })
-
-// needle.post('http://localhost:3001/save-order', {
-//     transactionID: "ABC4",
-//     productIDs: ["2"],
-//     orderQuantities: [4],
-//     orderStatus: 0,            // (Int: 0 Pending / 1 Completed / 2 Canceled )
-//     email: "adpaleracio@up.edu.ph",
-//     dateOrdered: "2024-05-04T18:00:00Z",
-//     time: "2024-05-04T18:00:00Z"
-// }, (err, res) =>{
-//     console.log(res.body)
-// })
-
-
 
 //updating a product
 // needle.post('http://localhost:3000/update-qty', {
@@ -103,3 +65,5 @@ needle.post('http://localhost:3001/save-order', {
 // needle.get('http://localhost:3000/get-all-orders', (err, res) =>{
 //     console.log(res.body)
 // })
+
+
