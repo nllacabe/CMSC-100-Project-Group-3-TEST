@@ -2,7 +2,7 @@ import {
     saveProduct, updateQty, removeProduct, getAllProducts, 
     saveOrder, updateStatus, getAllOrders, getUsers, customerLogin,
     customerSignup, addUserShoppingCart, adminLogin, authenticateToken,
-    getUserProfile, updateUser
+    getUserProfile, updateUser, getUserEmail, getUserOrder
 } from './controller.js'
 
 
@@ -29,7 +29,9 @@ export default function router(app) {
   app.post('/remove-product', removeProduct)
   app.get('/get-all-products', getAllProducts)
 
-  app.post('/save-order', saveOrder)                  // order
+  app.post('/save-order', authenticateToken, saveOrder); // order
   app.post('/update-status', updateStatus)
-  app.get('/get-all-orders', getAllOrders)
+  // app.get('/get-all-orders',authenticateToken, getAllOrders)
+  app.get('/get-user-orders',authenticateToken, getUserOrder)
+  app.get('/get-user-email', authenticateToken, getUserEmail);
 }

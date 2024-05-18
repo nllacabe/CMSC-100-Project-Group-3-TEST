@@ -283,7 +283,16 @@ const getUserProfile = async (req, res) => {
   }
 };
 
-
+const getUserEmail = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('email'); // Select only the email field
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ email: user.email });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 const addUserShoppingCart = async (req, res) => {                  // post method for saving users
     try {
@@ -357,28 +366,46 @@ const removeProduct = async (req, res) => {    //delete a product by product ID
 
 
 // functions for Order ------------------------
-const saveOrder = async (req, res) => {                 // post method for saving orders
-    if (
-        !req.body.transactionID ||
-        !req.body.productIDs ||
-        !req.body.orderQuantity ||
-        !req.body.orderStatus ||
-        !req.body.email ||
-        !req.body.dateOrdered ||
-        !req.body.timeOrdered
-    ){
-        res.json({ success: false, message: 'All required fields must be provided' });
-        return;
-    }
+const saveOrder = async (req, res) => {
+  try {
+      // Extract user email from the authenticated user
+      const user = await User.findById(req.user.userId);
+      const userEmail = user.email;
 
-    const newOrder = new Order(req.body);
-    const savedOrder = await newOrder.save(); // inorganize ko lang
-    
-    if (savedOrder) {
-        res.json({ success: true, order: savedOrder });
-    } else {
-        res.json({ success: false, message: 'Error saving order' });
-    }
+      if (
+          !req.body.transactionID ||
+          !req.body.productIDs ||
+          !req.body.orderQuantity ||
+          !req.body.orderStatus ||
+          !req.body.dateOrdered ||
+          !req.body.timeOrdered
+      ){
+          res.json({ success: false, message: 'All required fields must be provided' });
+          return;
+      }
+
+      // Create the order with the user's email
+      const newOrder = new Order({
+          transactionID: req.body.transactionID,
+          productIDs: req.body.productIDs,
+          orderQuantity: req.body.orderQuantity,
+          orderStatus: req.body.orderStatus,
+          email: userEmail,  // Use the extracted email
+          dateOrdered: req.body.dateOrdered,
+          timeOrdered: req.body.timeOrdered
+      });
+
+      const savedOrder = await newOrder.save();
+      
+      if (savedOrder) {
+          res.json({ success: true, order: savedOrder });
+      } else {
+          res.json({ success: false, message: 'Error saving order' });
+      }
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 const updateStatus = async (req, res) => {              // post method for updating status
@@ -394,6 +421,17 @@ const getAllOrders = async (req, res) => {              // get method for gettin
     else{
         res.json({});
     }
+};
+
+const getUserOrder = async (req, res) => {              // get method for getting all orders
+  try {
+    const user = await User.findById(req.user.userId).select('email');
+    const orders = await Order.find({ email: user.email });
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 
@@ -437,5 +475,6 @@ const updateUser = async (req, res) => {
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser
+    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser,
+    getUserEmail, getUserOrder
 }

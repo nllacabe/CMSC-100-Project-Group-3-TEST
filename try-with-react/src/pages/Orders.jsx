@@ -1,61 +1,51 @@
 import { useEffect, useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-export default function Orders() {
+export default function UserOrders() {
   const [orders, setOrders] = useState([]);
-  const [productIDs, setProductIDs] = useState([]);
-  // const [products, setProducts] = useState([]);
-
-  const [orderCanceled, setOrderCanceled] = useState(false);
-  const [idToCancel, setIdToCancel] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3000/get-all-orders')
-      .then(response => response.json())
-      .then(body => {
-        setOrders(body.filter(order => order.email == "email@gmail.com"))
-        setProductIDs(((body.filter(order => order.email == "email@gmail.com")).map(order => order.productIDs))[0])
-      })
-
-    // fetch('http://localhost:3001/get-all-products')
-    //   .then(response => response.json())
-    //   .then(body => {
-    //     setProducts(body)
-    //   })
-
-    if(orderCanceled){
-        fetch('http://localhost:3000/update-status',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            transactionID: idToCancel,
-            orderStatus: "2"
-          })
-        })
+    const fetchUserOrders = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('User is not logged in');
+        navigate('/login');
+        return;
       }
-      setOrderCanceled(false);
-  }, [orderCanceled])
 
+      try {
+        const response = await fetch('http://localhost:3000/get-user-orders', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch orders');
+        }
+        const data = await response.json();
+        setOrders(data);
+      } catch (error) {
+        console.error('Failed to fetch orders', error);
+      }
+    };
+
+    fetchUserOrders();
+  }, [navigate]);
 
   return (
-    <>
     <div className="orders-main">
-        <h1>Orders</h1>
-        <div className="orders-container">
-            {orders.map((item) =>
-                <div className="order">
-                    <p>{item.transactionID}</p>
-                    <p>{item.orderStatus}</p>
-                    <p>Date ordered: {item.dateOrdered.slice(0,10)}</p>
-                    <p>Time ordered: {item.timeOrdered}</p>
-                    <button onClick={() => {setOrderCanceled(true); setIdToCancel(item.transactionID);}}>Cancel Order</button>
-                </div>
-            )}
-        </div>
+      <h1>Your Orders</h1>
+      <div className="orders-container">
+        {orders.map((item) => (
+          <div key={item.transactionID} className="order">
+            <p>Transaction ID: {item.transactionID}</p>
+            <p>Order Status: {item.orderStatus}</p>
+            <p>Date ordered: {new Date(item.dateOrdered).toLocaleDateString()}</p>
+            <p>Time ordered: {item.timeOrdered}</p>
+          </div>
+        ))}
+      </div>
     </div>
-    </>
-  )
+  );
 }

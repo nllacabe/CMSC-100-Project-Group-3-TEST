@@ -208,3 +208,57 @@ input {
   padding: 7px;
   width: 90%;
 }
+
+.user-div {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 100px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.user-div h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.user-div p {
+  font-size: 1em;
+  margin: 10px 0;
+  color: #666;
+}
+
+.user-div input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 8px 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.user-div button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-div button:hover {
+  background-color: #0056b3;
+}
+
+.user-div button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

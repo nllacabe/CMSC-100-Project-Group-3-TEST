@@ -13,25 +13,26 @@ export default function OrderSummary() {
 
   useEffect(() => {
     if(orderPlaced){
+      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
       fetch('http://localhost:3000/save-order',
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // Include token in headers
         },
         body: JSON.stringify({ 
           transactionID: uuidv4(),
           productIDs: cart.map(item => item.productID),
           orderQuantity: cart.map(item => item.count),
           orderStatus: "0",
-          email: "email@gmail.com",
-          dateOrdered: Date(),
+          dateOrdered: new Date().toISOString(),
           timeOrdered: moment().format('HH:mm:ss')
         })
-      })
+      });
     }
     setOrderPlaced(false);
-  }, [orderPlaced])
+  }, [orderPlaced]);
 
   return (
     <>
@@ -40,22 +41,26 @@ export default function OrderSummary() {
         <p>Total Quantity of Items: {totalItems}</p>
         <h1>Order Summary</h1>
         <table>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-            <th>Item Subtotal</th>
-          </tr>
-          {cart.map((item) =>
-              <tr>
-                <td className="square-image"><img src={item.productImg}></img></td>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th>Item Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cart.map((item) => (
+              <tr key={item.productID}>
+                <td className="square-image"><img src={item.productImg} alt={item.productName}></img></td>
                 <td>{item.productName}</td>
                 <td>{item.productPrice}</td>
                 <td>{item.count}</td>
-                <td>{item.productPrice*item.count}</td>
+                <td>{item.productPrice * item.count}</td>
               </tr>
-          )}
+            ))}
+          </tbody>
         </table>
         <p>Total Price: {totalPrice}</p>
         <p>Mode of Payment: cash on delivery</p>
