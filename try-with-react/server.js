@@ -68,6 +68,30 @@ const ShoppingCart = mongoose.model('ShoppingCart', {
   }
 }, 'shoppingCartUser'); // collection name
 
+// define and create Product model       
+const Product = mongoose.model('Product', {
+  productID: { // added productID (wala sa previous version)
+      type: String,
+    },
+  productName: {
+    type: String,
+  },
+  productType: {
+    type: Number,
+    enum: [1, 2, 3, 4, 5], //(Int: 1 Staple/2 Fruits and Vegetables/ 3 Livestock/ 4 Seafood/ 5 Others)
+  },
+  productPrice: { // additional field for price (wala sa docs)
+    type: Number,
+  },
+  productDescription: {
+    type: String,
+  },
+  productQuantity: {
+    type: Number,
+  }
+}, 'productData'); // collection name: productData
+
+
 //post request for signup
 app.post('/signup', async (req, res) => {
   try {
@@ -210,6 +234,52 @@ app.post('/login-admin', async (req, res) => {
 
 
 //-----edit a user
+
+
+// Route to get all products
+app.get('/get-all-products', async (req, res) => {
+  try {
+      const products = await products.find();
+      res.json(products);
+  } catch (error) {
+      res.status(500).json({ error: 'Unable to fetch products' });
+  }
+});
+
+//post request for adding a product
+app.post('/add-product', async (req, res) => {
+  try {
+    // Extract product details from request body
+    const { productName, productType, productPrice, productDescription, productQuantity } = req.body;
+
+    // Check if any field is empty
+    if (!productName || !productType || !productPrice || !productDescription || !productQuantity) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }      
+      
+    // Create new product instance
+    const newProduct = new Product({ productName, productType, productPrice, productDescription, productQuantity });
+
+    // Save product to database
+    const savedProduct = await newProduct.save();
+
+    // Send response
+    res.status(201).json({ message: 'Product added successfully', product: savedProduct }); // Return the saved product object
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.delete('/delete-product/:productName', async (req, res) => {
+  try {
+      const { productName } = req.params;
+      await Product.findOneAndDelete({ productName });
+      res.json({ message: 'Product deleted' });
+  } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+  }
+});
   
   // Start server
   const PORT = 3000

@@ -344,26 +344,6 @@ th {
   background-color: #f2f2f2;
 }
 
-input[type="text"],
-input[type="number"],
-select {
-  width: calc(100% - 20px);
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
 .delete-btn {
   background-color: #f44336;
 }

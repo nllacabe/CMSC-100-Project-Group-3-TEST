@@ -344,6 +344,39 @@ const removeProduct = async (req, res) => {    //delete a product by product ID
     res.send(await Product.deleteOne({ productID: req.body.productID}))
 }
 
+const addProduct = async (req, res) => {
+  try {
+    // Extract product details from request body
+    const { productName, productType, productPrice, productDescription, quantity } = req.body;
+
+    // Check if any field is empty
+    if (!productName || !productType || !productPrice || !productDescription || !quantity) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }      
+      
+    // Create new product instance
+    const newProduct = new Product({ productName, productType, productPrice, productDescription, quantity });
+
+    // Save product to database
+    const savedProduct = await newProduct.save();
+
+    // Send response
+    res.status(201).json({ message: 'Product added successfully', product: savedProduct }); // Return the saved product object
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+      const { productId } = req.body;
+      await Product.findByIdAndDelete(productId);
+      res.json({ message: 'Product deleted' });
+  } catch (error) {
+      res.status(500).json({ error: 'Internal server error' });
+  }
+};
 // --------------------------------------------
 
 
@@ -418,5 +451,5 @@ const updateUser = async (req, res) => {
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser
+    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser, addProduct, deleteProduct
 }
