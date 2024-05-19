@@ -4,7 +4,7 @@ export default function RootAdmin() {
     return (
       <>
       <header>
-        <section className="navbar-content">
+        <section className="admin-navbar-content">
           <h1>Farm-To-Table-Admin</h1>
           <nav>
             <ul className="navbar-links">

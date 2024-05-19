@@ -10,16 +10,42 @@ header{
   z-index: 1000;
 }
 
+.admin-header {
+  font-weight: bold;
+  background-color: #FFCF58; /* Dark background color */
+  color: #596418; /* White text color */
+  padding-left: 30%;
+  text-align: center; /* Center the text */
+  font-size: 1.5em; /* Font size for the heading */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .navbar-content {
+  font-weight: bold;
   margin-top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(211, 211, 211);
+  background-color: #FFCF58;
   padding-left: 120px; /* Remove or adjust these padding values */
   padding-right: 120px; /* Remove or adjust these padding values */
   padding-top: 0; /* Adjusted to remove space at the top */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+.admin-navbar-content {
+    font-weight: bold;
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFCF58;
+    padding-left: 120px; /* Remove or adjust these padding values */
+    padding-right: 120px; /* Remove or adjust these padding values */
+    padding-top: 0; /* Adjusted to remove space at the top */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 
 .navbar-links{
   list-style: none;
@@ -245,23 +271,20 @@ input {
   background-color: gray;
 }
 
-.admin-dashboard-container {
-  display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  height: 100vh;
-  width: 100%;
-  background-color: #f0f0f0; /* Optional: set a background color for the container */
-}
+  .admin-dashboard-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh;
+    width: 100%;
+    background-color:#C8C467;
+  }
 
 .admin-dashboard {
   display: flex;
   flex-direction: column;
   align-items: center; /* Center content horizontally */
-  padding: 20px;
-  background-color: #f8cce2; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color:#C8C467;
 }
 
 .category-cards {
@@ -269,12 +292,13 @@ input {
   flex-wrap: wrap; /* Allow cards to wrap */
   justify-content: center; /* Center cards horizontally */
   gap: 20px;
-  margin-top: 20px; 
+  padding-top: 40px; 
 }
 
 .category-card {
+  background-color: white;
   width: 200px;
-  padding: 20px;
+  padding: 180px 30px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
@@ -321,6 +345,7 @@ table {
   width: 100%;
   border-collapse: collapse;
   background-color: whitesmoke;
+  padding-bottom: 40px;
 }
 
 th, td {
@@ -411,7 +436,7 @@ th {
 }
 
 .user-container {
-  padding: 20px 20px;
+  padding: 20px 120px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -438,7 +463,7 @@ th {
 
 .user-container li {
   background-color: #fff;
-  padding: 10px 15px;
+  padding: 10px 160px;
   margin: 10px 0;
   border: 1px solid #ddd;
   border-radius: 5px;

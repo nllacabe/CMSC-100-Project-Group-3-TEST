@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 
 function AdminDashboard() {
   return (
+    <>
+    <header className='admin-header'> Welcome back, Admin! </header>
+    <div className='admin-dashboard-container'>
     <center>
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
       <div className="category-cards">
         {/* card for Users */}
         <Link to={`/root-admin/users`} className="category-card">
@@ -33,6 +35,8 @@ function AdminDashboard() {
       </div>
     </div>
     </center>
+    </div>
+    </>
   );
 }
 
