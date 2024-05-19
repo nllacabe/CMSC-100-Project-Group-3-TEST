@@ -164,8 +164,10 @@ const ProductListings = () => {
               <td>{product.productDescription || ''}</td>
               <td>{product.productQuantity || ''}</td>
               <td>
+                <center>
                 <button className="edit-button" onClick={() => handleEditProduct(product)}>Edit</button>
                 <button className="delete-button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+                </center>
               </td>
             </tr>
           ))}

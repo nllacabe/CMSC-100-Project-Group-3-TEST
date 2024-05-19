@@ -143,7 +143,13 @@ header{
 }
 
 .delete-button {
-  background-color: red;
+  background: #F24900;
+  color: #fff;
+  border: none;
+  padding: 7px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .delete-button:hover {
@@ -151,11 +157,18 @@ header{
 }
 
 .edit-button {
-  background-color: #596418;
+  background: #F29400;
+  color: #fff;
+  border: none;
+  padding: 7px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .edit-button:hover {
-  background-color: green;
+  background-color: #D18206;
 }
 
 .total-and-button{
@@ -271,14 +284,14 @@ input {
   background-color: gray;
 }
 
-  .admin-dashboard-container {
+.admin-dashboard-container {
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     height: 100vh;
     width: 100%;
     background-color:#C8C467;
-  }
+}
 
 .admin-dashboard {
   display: flex;
@@ -297,10 +310,10 @@ input {
 
 .category-card {
   background-color: white;
-  width: 200px;
+  width: 260px;
   padding: 180px 30px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 50px;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease; 
@@ -308,6 +321,13 @@ input {
 
 .category-card:hover {
   background-color: #e6e6e6; /* Change background color on hover */
+}
+
+.category-image {
+  width: 60%;
+  height: 60%;
+  object-fit: cover;
+  margin-bottom: 10px;
 }
 
 /* Styling for product listings main container */
@@ -331,7 +351,7 @@ input {
 }
 
 .sorting-options button {
-  background: #007bff;
+  background: #F29400;
   color: #fff;
   border: none;
   padding: 10px 15px;
@@ -340,12 +360,16 @@ input {
   margin-left: 10px;
 }
 
+.sorting-options button:hover {
+  background-color: #D18206;
+}
+
 /* Styling for tables */
 table {
   width: 100%;
   border-collapse: collapse;
   background-color: whitesmoke;
-  padding-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 th, td {
@@ -379,6 +403,13 @@ th {
 .submit-product {
   width: 96%;
   padding: 6px;
+  background-color: #F29400;
+  border-width: 1px;
+}
+
+.submit-product:hover {
+  background-color: #D18206;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .sorting-options select {
@@ -447,7 +478,7 @@ th {
 
 .user-container h2 {
   font-size: 24px;
-  color: #333;
+  color: #596418;
   margin-bottom: 20px;
 }
 
@@ -473,4 +504,21 @@ th {
 
 .user-container li:nth-child(even) {
   background-color: #f1f1f1;
+}
+
+/* New CSS for admin links */
+.admin-link:link {
+  color: #596418; /* Color of link */
+}
+
+.admin-link:visited {
+  color: #596418; /* Color of visited link */
+}
+
+.admin-link:hover {
+  color: #596418; /* Color of link when hovered over */
+}
+
+.admin-link:active {
+  color: #596418; /* Color of link when clicked */
 }
