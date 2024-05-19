@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 
 export default function Profile() {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [editing, setEditing] = useState(false);
     const [editedUser, setEditedUser] = useState(null);
+    const [orders, setOrders] = useState([]);
 
     const getUserInfo = async (token) => {
         const response = await fetch('http://localhost:3000/profile', {
@@ -21,24 +20,44 @@ export default function Profile() {
         return response.json();
     };
 
+
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
-            if (!token) {
-                setError('User is not logged in');
-                setLoading(false);
-                return;
-            }
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('User is not logged in');
+            return;
+        }
+
+        const fetchUserData = async () => {
             try {
                 const userData = await getUserInfo(token);
                 setUser(userData);
             } catch (err) {
-                setError('Failed to fetch user info');
-            } finally {
-                setLoading(false);
+                console.error('Failed to fetch user info', err);
             }
         };
-        fetchUserInfo();
+
+        fetchUserData();
+
+        const fetchUserOrders = async () => {
+            try {
+              const response = await fetch('http://localhost:3000/get-completed-orders', {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+              });
+              if (!response.ok) {
+                throw new Error('Failed to fetch orders');
+              }
+              const data = await response.json();
+              setOrders(data);
+            } catch (error) {
+              console.error('Failed to fetch orders', error);
+            }
+          };
+      
+          fetchUserOrders();
+
     }, []);
 
     const handleEdit = () => {
@@ -66,7 +85,7 @@ export default function Profile() {
             setEditing(false);
             alert('User information updated successfully!');
         } catch (err) {
-            console.error(err);
+            console.error('Failed to update user information', err);
             alert('Failed to update user information');
         }
     };
@@ -78,14 +97,6 @@ export default function Profile() {
             [name]: value
         }));
     };
-
-    if (loading) {
-        return <p>Loading...</p>;
-    }
-
-    if (error) {
-        return <p>{error}</p>;
-    }
 
     return (
         <div className='user-div'>
@@ -108,6 +119,18 @@ export default function Profile() {
                     <button onClick={handleSave}>Save</button>
                 </div>
             )}
+
+            <h2>Orders</h2>
+            <div>
+                {orders.map((order) => (
+                    <div key={order.transactionID}>
+                        <p>Transaction ID: {order.transactionID}</p>
+                        <p>Order Status: {order.orderStatus}</p>
+                        <p>Date Ordered: {new Date(order.dateOrdered).toLocaleDateString()}</p>
+                        <p>Time Ordered: {order.timeOrdered}</p>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

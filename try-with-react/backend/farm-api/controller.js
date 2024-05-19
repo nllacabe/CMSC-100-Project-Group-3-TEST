@@ -434,6 +434,20 @@ const getUserOrder = async (req, res) => {              // get method for gettin
   }
 };
 
+const HistoryPurchased = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId).select('email');
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const orders = await Order.find({ email: user.email, orderStatus: 1 });
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 
 const updateUser = async (req, res) => {
   const { firstName, lastName, username, email } = req.body;
@@ -476,5 +490,5 @@ export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
     addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser,
-    getUserEmail, getUserOrder
+    getUserEmail, getUserOrder, HistoryPurchased
 }

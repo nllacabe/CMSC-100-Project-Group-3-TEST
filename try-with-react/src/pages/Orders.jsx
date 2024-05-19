@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 export default function UserOrders() {
   const [orders, setOrders] = useState([]);
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchUserOrders = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         console.error('User is not logged in');
-        navigate('/login');
+        // navigate('/login');
         return;
       }
 
@@ -31,7 +31,32 @@ export default function UserOrders() {
     };
 
     fetchUserOrders();
-  }, [navigate]);
+  });
+
+  const cancelOrder = async (transactionID) => {
+    try {
+      const response = await fetch('http://localhost:3000/update-status', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          transactionID: transactionID,
+          orderStatus: "2"
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Failed to cancel order');
+      }
+
+      // Update the order status locally after successful API call
+      setOrders(orders.map(order =>
+        order.transactionID === transactionID ? { ...order, orderStatus: "2" } : order
+      ));
+    } catch (error) {
+      console.error('Failed to cancel order', error);
+    }
+  };
 
   return (
     <div className="orders-main">
@@ -43,6 +68,9 @@ export default function UserOrders() {
             <p>Order Status: {item.orderStatus}</p>
             <p>Date ordered: {new Date(item.dateOrdered).toLocaleDateString()}</p>
             <p>Time ordered: {item.timeOrdered}</p>
+            {item.orderStatus !== "2" && (
+              <button onClick={() => cancelOrder(item.transactionID)}>Cancel Order</button>
+            )}
           </div>
         ))}
       </div>
