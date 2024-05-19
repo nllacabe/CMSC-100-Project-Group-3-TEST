@@ -2,6 +2,11 @@ import { Outlet, Link } from 'react-router-dom';
 
 export default function Root() {
 
+  // Remove the token from localStorage
+  const SignOut = () => {
+    localStorage.removeItem('token');
+};
+
     return (
       <>
       <header>
@@ -12,6 +17,7 @@ export default function Root() {
                 <li><Link to={`/root/shop`}>SHOP</Link></li>
                 <li><Link to={`/root/orders`}>ORDERS</Link></li>
                 <li><Link to={`/root/profile`}>PROFILE</Link></li>
+                <li><Link to={`/login`} onClick={SignOut}>SIGN OUT</Link></li>
             </ul>
           </nav>
         </section>

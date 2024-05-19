@@ -99,14 +99,13 @@ export default function Profile() {
     return (
     <div className='ProfilePage'>
         <div className='user-div'>
-            <h1>User Information</h1>
+            <h1>MY PROFILE</h1>
             {user && !editing && (
                 <div>
-                    <p>First Name: {user.firstName} </p>
-                    <p>Last Name: {user.lastName}</p>
-                    <p>Username: {user.username}</p>
-                    <p>Email: {user.email}</p>
-                    <button onClick={handleEdit}>Edit</button>
+                    <p> <strong>Name:</strong> {user.firstName} {user.lastName} </p>
+                    <p><strong>Username:</strong> {user.username}</p>
+                    <p><strong>Email:</strong> {user.email}</p>
+                    <button onClick={handleEdit}>Edit Info</button>
                 </div>
             )}
             {editing && (
@@ -114,7 +113,7 @@ export default function Profile() {
                     <p>First Name: <input type="text" name="firstName" value={editedUser.firstName} onChange={handleInputChange} /></p>
                     <p>Last Name: <input type="text" name="lastName" value={editedUser.lastName} onChange={handleInputChange} /></p>
                     <p>Username: <input type="text" name="username" value={editedUser.username} onChange={handleInputChange} /></p>
-                    <p>Email: <input type="text" name="email" value={editedUser.email} onChange={handleInputChange} /></p>
+                    <p>Email: <input type="text" name="email" value={editedUser.email} onChange={handleInputChange} disabled/></p>
                     <button onClick={handleSave}>Save</button>
                 </div>
             )}

@@ -1,10 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+
+const SignOut = () => {
+  localStorage.removeItem('token');
+};
+
 function AdminDashboard() {
   return (
+    <>
+    <header className='admin-header'> 
+      <span>Welcome back, Admin!</span>
+      <Link to={`/login-admin`}  onClick={SignOut} className="logout-button">Logout</Link>
+    </header>
+    <div className='admin-dashboard-container'>
+    <center>
     <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
       <div className="category-cards">
         {/* card for Users */}
         <Link to={`/root-admin/users`} className="category-card">
@@ -31,6 +42,9 @@ function AdminDashboard() {
         </Link>
       </div>
     </div>
+    </center>
+    </div>
+    </>
   );
 }
 

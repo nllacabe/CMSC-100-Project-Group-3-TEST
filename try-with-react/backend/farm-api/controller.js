@@ -445,7 +445,6 @@ const updateUser = async (req, res) => {
       if (firstName) user.firstName = firstName;
       if (lastName) user.lastName = lastName;
       if (username) user.username = username;
-      if (email) user.email = email;
 
       // Save the updated user information
       await user.save();

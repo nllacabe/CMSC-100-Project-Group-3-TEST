@@ -9,6 +9,18 @@ header{
   z-index: 1000;
 }
 
+
+.admin-header {
+  font-weight: bold;
+  background-color: #FFCF58; /* Dark background color */
+  color: #596418; /* White text color */
+  padding-left: 30%;
+  text-align: center; /* Center the text */
+  font-size: 1.5em; /* Font size for the heading */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .navbar-content{
   display: flex;
   justify-content: space-between;
@@ -34,6 +46,11 @@ header{
   float: left;
 }
 
+
+.logout-button {
+  font-size: 20px;
+  margin-left: 90px;
+}
 .card-container{            /* the section that contains the cards */
   padding-top: 120px;
   padding-left: 30px;
@@ -239,12 +256,17 @@ input {
 
 .user-div {
   margin-top: 80px;
+  margin-left: 20px;
   background-color: #fff;
-  padding: 80px;
+  padding: 20px;
+  padding-top: 30px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 30%; /* Slightly smaller width */
+  width:  36%; 
+  height: fit-content;  
 }
+
+
 
 .orders-div {
   margin-top: 80px;
@@ -256,15 +278,19 @@ input {
 }
 .user-div h1 {
   text-align: center;
-  font-size: 2em;
+  font-size: 20px;
   margin-bottom: 20px;
-  color: #333;
+  margin-top: 2px;
+  color: #0c3921;
+  background-color: #eeaa56;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .user-div p {
-  font-size: 1em;
+  font-size: 20px;
   margin: 10px 0;
-  color: #666;
+  color: #000000;
 }
 
 .user-div input[type="text"] {
@@ -283,7 +309,7 @@ input {
   margin: 10px 5px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
+  background-color: #596418;
   color: #fff;
   font-size: 1em;
   cursor: pointer;
@@ -291,7 +317,7 @@ input {
 }
 
 .user-div button:hover {
-  background-color: #0056b3;
+  background-color: #92a814;
 }
 
 .user-div button:disabled {
@@ -299,17 +325,17 @@ input {
   cursor: not-allowed;
 }
 
-.orders-div > div {
+/* .orders-div > div {
   margin-bottom: 15px;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
-}
+} */
 
-.orders-div > div p {
+/* .orders-div > div p {
   margin: 5px 0;
-}
+} */
 
 .orders-div table {
   width: 100%;
@@ -338,6 +364,6 @@ input {
 .orders-div th {
   padding-top: 12px;
   padding-bottom: 12px;
-  background-color: #007bff;
+  background-color: #596418;
   color: white;
 }
