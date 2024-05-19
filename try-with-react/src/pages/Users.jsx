@@ -23,6 +23,7 @@ const Users = () => {
 
     return (
         <div className='container'>
+        <div className='user-container'>
             <h2>User Accounts</h2>
             {loading ? (
                 <p>Loading...</p>
@@ -38,6 +39,7 @@ const Users = () => {
                     </ul>
                 </div>
             )}
+        </div>
         </div>
     );
 };

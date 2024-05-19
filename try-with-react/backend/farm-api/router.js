@@ -3,7 +3,7 @@ import {
     saveProduct, updateQty, removeProduct, getAllProducts, 
     saveOrder, updateStatus, getAllOrders, getUsers, customerLogin,
     customerSignup, addUserShoppingCart, adminLogin, authenticateToken,
-    getUserProfile, updateUser, addProduct, deleteProduct
+    getUserProfile, updateUser, addProduct, deleteProduct, updateProduct
 } from './controller.js'
 
 
@@ -30,6 +30,7 @@ export default function router(app) {
   app.get('/get-all-products', getAllProducts)
   app.post('/add-product', addProduct)
   app.post('/delete-product', deleteProduct)
+  app.post('/update-product', updateProduct)
 
 app.post('/save-order', saveOrder)                  // order
 app.post('/update-status', updateStatus)

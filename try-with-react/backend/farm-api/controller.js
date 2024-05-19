@@ -344,39 +344,79 @@ const removeProduct = async (req, res) => {    //delete a product by product ID
     res.send(await Product.deleteOne({ productID: req.body.productID}))
 }
 
+// Add Product
 const addProduct = async (req, res) => {
   try {
-    // Extract product details from request body
-    const { productName, productType, productPrice, productDescription, quantity } = req.body;
+    const { productName, productType, productPrice, productDescription, productQuantity, productImg } = req.body;
 
-    // Check if any field is empty
-    if (!productName || !productType || !productPrice || !productDescription || !quantity) {
+    if (!productName || !productType || !productPrice || !productDescription || !productQuantity || !productImg) {
       return res.status(400).json({ message: 'All fields are required' });
-    }      
-      
-    // Create new product instance
-    const newProduct = new Product({ productName, productType, productPrice, productDescription, quantity });
+    }     
 
-    // Save product to database
+    const newProduct = new Product({ 
+      productName, 
+      productType, 
+      productPrice, 
+      productDescription, 
+      productQuantity,
+      productImg 
+    });
+
     const savedProduct = await newProduct.save();
-
-    // Send response
-    res.status(201).json({ message: 'Product added successfully', product: savedProduct }); // Return the saved product object
+    res.status(201).json({ message: 'Product added successfully', product: savedProduct });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
+// Delete Product
 const deleteProduct = async (req, res) => {
   try {
-      const { productId } = req.body;
-      await Product.findByIdAndDelete(productId);
-      res.json({ message: 'Product deleted' });
+    const { productId } = req.body;
+
+    if (!productId) {
+      return res.status(400).json({ message: 'Product ID is required' });
+    }
+
+    await Product.findByIdAndDelete(productId);
+    res.json({ message: 'Product deleted successfully' });
   } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+// Update Product
+// Update Product
+const updateProduct = async (req, res) => {
+  try {
+    const { productId, productName, productType, productPrice, productDescription, productQuantity, productImg } = req.body;
+
+    if (!productId || !productName || !productType || !productPrice || !productDescription || !productQuantity || !productImg) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    const updatedProduct = await Product.findByIdAndUpdate(productId, {
+      productName,
+      productType,
+      productPrice,
+      productDescription,
+      productQuantity,
+      productImg
+    }, { new: true });
+
+    res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+
+
+
 // --------------------------------------------
 
 
@@ -451,5 +491,5 @@ const updateUser = async (req, res) => {
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser, addProduct, deleteProduct
+    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser, addProduct, deleteProduct, updateProduct
 }

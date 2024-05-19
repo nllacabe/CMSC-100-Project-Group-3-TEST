@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function AdminDashboard() {
   return (
+    <center>
     <div className="admin-dashboard">
       <h1>Admin Dashboard</h1>
       <div className="category-cards">
@@ -31,6 +32,7 @@ function AdminDashboard() {
         </Link>
       </div>
     </div>
+    </center>
   );
 }
 
