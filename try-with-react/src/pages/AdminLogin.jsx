@@ -35,6 +35,7 @@ export default function AdminLogin() {
             <div>
                 <div className='Signup-Card'>
                     <form onSubmit={handleSubmit}>
+                    <br></br><br></br><br></br><br></br><br></br><br></br>
                         <center><h2>Admin Login</h2></center>
                         <div className='form-group'>
                             <input type='text' name='username' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username' />
@@ -42,7 +43,8 @@ export default function AdminLogin() {
                         <div className='form-group'>
                             <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
                         </div>
-                        <button type='submit'>Login</button>
+                        <br></br>
+                        <button type='submit'className="SignupBTN">Login</button>
                     </form>
                 </div>
             </div>

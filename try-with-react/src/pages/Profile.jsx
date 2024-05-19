@@ -20,7 +20,6 @@ export default function Profile() {
         return response.json();
     };
 
-
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -57,7 +56,6 @@ export default function Profile() {
           };
       
           fetchUserOrders();
-
     }, []);
 
     const handleEdit = () => {
@@ -99,6 +97,7 @@ export default function Profile() {
     };
 
     return (
+    <div className='ProfilePage'>
         <div className='user-div'>
             <h1>User Information</h1>
             {user && !editing && (
@@ -119,18 +118,33 @@ export default function Profile() {
                     <button onClick={handleSave}>Save</button>
                 </div>
             )}
-
-            <h2>Orders</h2>
-            <div>
-                {orders.map((order) => (
-                    <div key={order.transactionID}>
-                        <p>Transaction ID: {order.transactionID}</p>
-                        <p>Order Status: {order.orderStatus}</p>
-                        <p>Date Ordered: {new Date(order.dateOrdered).toLocaleDateString()}</p>
-                        <p>Time Ordered: {order.timeOrdered}</p>
-                    </div>
-                ))}
-            </div>
         </div>
+
+        <div className='orders-div'>
+            <h2>Purchase History</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Date Ordered</th>
+                        <th>Time Ordered</th>
+                        <th>Item Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orders.map((order) => (
+                        <tr key={order.transactionID}>
+                            <td>{order.transactionID}</td>
+                            <td>{new Date(order.dateOrdered).toLocaleDateString()}</td>
+                            <td>{order.timeOrdered}</td>
+                            <td>{order.itemQuantity}</td>
+                            <td>{order.totalPrice}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    </div>
     );
 }

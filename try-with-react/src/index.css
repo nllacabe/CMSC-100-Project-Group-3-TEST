@@ -157,16 +157,6 @@ header{
 
 
 /* CSS FOR SIGNUP/LOGIN */
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
-
-/* html {
-  background-color: #FFCF58;
-} */
 
 .SignupPage {
   background-color:  #FFCF58;
@@ -180,6 +170,7 @@ header{
 
 
 .Signup-Card {
+
   background-color: white;
   height: 600px;
   width: 450px;
@@ -194,9 +185,8 @@ header{
 }
 
 form {
+  padding-top: 30px;
   width: 80%;
-
-
 }
 .form-group {
   padding: 5px;
@@ -204,20 +194,66 @@ form {
 }
 
 input {
-
-  padding: 7px;
+  padding: 10px;
   width: 90%;
+  /* border: none; */
+}
+
+.SignupBTN {
+  width: 94%;
+  padding: 10px;
+  color:#ffffff;
+  background-color: #F29400;
+  border: none;
+  border-radius: 5px;
+}
+
+.LoginBTN {
+  width: 94%;
+  padding: 10px;
+  color:#ffffff;
+  background-color: #596418;
+  border: none;
+  border-radius: 5px;
+}
+
+.SignupBTN:hover {
+  background-color: #e77e00;
+}
+
+.LoginBTN:hover {
+  background-color: #4b551b;
+}
+
+
+/* CSS for Profile */
+
+.ProfilePage {
+  background-color:  #FFCF58;
+  height: 100vh; /* Ensure the background covers the full height */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  /* font-family: Arial, sans-serif; */
 }
 
 .user-div {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 100px;
+  margin-top: 80px;
+  background-color: #fff;
+  padding: 80px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  width: 30%; /* Slightly smaller width */
 }
 
+.orders-div {
+  margin-top: 80px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 55%; /* Slightly larger width */
+}
 .user-div h1 {
   text-align: center;
   font-size: 2em;
@@ -261,4 +297,47 @@ input {
 .user-div button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.orders-div > div {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.orders-div > div p {
+  margin: 5px 0;
+}
+
+.orders-div table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.orders-div th, .orders-div td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.orders-div th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.orders-div tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.orders-div tr:hover {
+  background-color: #ddd;
+}
+
+.orders-div th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #007bff;
+  color: white;
 }

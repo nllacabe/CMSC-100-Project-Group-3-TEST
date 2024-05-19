@@ -1,7 +1,7 @@
 import {
     saveProduct, updateQty, removeProduct, getAllProducts, 
     saveOrder, updateStatus, getAllOrders, getUsers, customerLogin,
-    customerSignup, addUserShoppingCart, adminLogin, authenticateToken,
+    customerSignup, adminLogin, authenticateToken,
     getUserProfile, updateUser, getUserEmail, getUserOrder,
     HistoryPurchased
 } from './controller.js'
@@ -22,7 +22,8 @@ export default function router(app) {
   app.get('/signup', getUsers)                 // user
   app.get('/profile', authenticateToken, getUserProfile);
   app.put('/profileEdit', authenticateToken, updateUser);  // Apply middleware here
-  app.post('/shoppingCart',  addUserShoppingCart)
+  //cart
+  //app.post('/shoppingCart', addUserShoppingCart)
   app.post('/login', customerLogin)
   app.post('/login-admin', adminLogin)
   app.post('/save-product', saveProduct)              // product
@@ -34,6 +35,6 @@ export default function router(app) {
   app.post('/update-status', updateStatus)
 
   app.get('/get-user-orders',authenticateToken, getUserOrder) //get the specific orders for the logged in user
-  app.get('/get-completed-orders',authenticateToken,  HistoryPurchased)
-  app.get('/get-user-email', authenticateToken, getUserEmail);
+  app.get('/get-completed-orders',authenticateToken,  HistoryPurchased) //get the completed orders only
+  app.get('/get-user-email', authenticateToken, getUserEmail);  //get the email of the logged in user
 }

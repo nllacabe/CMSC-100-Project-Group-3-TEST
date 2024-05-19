@@ -38,15 +38,17 @@ const User = mongoose.model('User', {
       password: {
         type: String,
         required: true
-      },
-      shoppingCart: {
-        type: String,   //reference to another schema
-    }
+      }
+
   }, 'userData'); // collection name
   
   //define and create user shopping cart model
   const ShoppingCart = mongoose.model('ShoppingCart', {
-    _id: {
+    shoppingCartID: {
+      type: String,
+      unique: true // Ensure transactionID is unique
+    },
+    email: {
       type: String
     },
     items: {
@@ -54,6 +56,12 @@ const User = mongoose.model('User', {
     },
     quantity: {
       type: [Number]
+    },
+    totalItems: {
+      type: Number
+    },    
+    totalPrice: {
+      type: Number
     }
   }, 'shoppingCartUser'); // collection name
   
@@ -106,12 +114,18 @@ const Order = mongoose.model('Order', {
     },
     timeOrdered: {
         type: String,
+    },
+    itemQuantity: {
+      type: Number,
+    },
+    totalPrice: {
+      type: Number,
     }
 }, 'orderData'); // collection name: orderData
 
 
 
-// function for User --------------------------
+//function for User --------------------------
 const customerSignup = async (req, res) => {                  // post method for saving users
     try {
         // Extract user details from request body
@@ -145,6 +159,8 @@ const customerSignup = async (req, res) => {                  // post method for
         res.status(500).json({ error: 'Internal server error' });
       }
 };
+
+
 
 const customerLogin = async (req, res) => {                  // post method for saving users
     try {
@@ -227,31 +243,6 @@ const getUsers = async (req, res) => {                  // post method for savin
       }
 };
 
-// const authenticateToken = (req, res, next) => {
-//   const token = req.header('Authorization')?.split(' ')[1];
-//   if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
-
-//   try {
-//     const decoded = jwt.verify(token, SECRET_KEY);
-//     req.user = decoded;
-//     next();
-//   } catch (error) {
-//     res.status(400).json({ message: 'Invalid token.' });
-//   }
-// };
-
-// const findUser = async (req,res) => {
-//   try {
-//     const user = await User.findById(req.user.userId).select('-password'); // Exclude the password field
-//     if (!user) return res.status(404).json({ message: 'User not found' });
-//     res.json(user);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// }
-
-
 // Middleware to authenticate token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -294,23 +285,6 @@ const getUserEmail = async (req, res) => {
   }
 };
 
-const addUserShoppingCart = async (req, res) => {                  // post method for saving users
-    try {
-        const { _id, items, quantity } = req.body;
-  
-        // Create new shopping cart instance
-        const newShoppingCart = new ShoppingCart({_id, items, quantity });
-  
-        // Save shopping cart to database
-        await newShoppingCart.save();
-  
-        // Send response
-        res.status(201).json({ message: 'Shopping cart created successfully', shoppingCart: newShoppingCart }); // Return the saved shopping cart object
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-};
 
 
 // --------------------------------------------
@@ -372,17 +346,17 @@ const saveOrder = async (req, res) => {
       const user = await User.findById(req.user.userId);
       const userEmail = user.email;
 
-      if (
-          !req.body.transactionID ||
-          !req.body.productIDs ||
-          !req.body.orderQuantity ||
-          !req.body.orderStatus ||
-          !req.body.dateOrdered ||
-          !req.body.timeOrdered
-      ){
-          res.json({ success: false, message: 'All required fields must be provided' });
-          return;
-      }
+      // if (
+      //     !req.body.transactionID ||
+      //     !req.body.productIDs ||
+      //     !req.body.orderQuantity ||
+      //     !req.body.orderStatus ||
+      //     !req.body.dateOrdered ||
+      //     !req.body.timeOrdered
+      // ){
+      //     res.json({ success: false, message: 'All required fields must be provided' });
+      //     return;
+      // }
 
       // Create the order with the user's email
       const newOrder = new Order({
@@ -392,7 +366,9 @@ const saveOrder = async (req, res) => {
           orderStatus: req.body.orderStatus,
           email: userEmail,  // Use the extracted email
           dateOrdered: req.body.dateOrdered,
-          timeOrdered: req.body.timeOrdered
+          timeOrdered: req.body.timeOrdered,
+          itemQuantity: req.body.itemQuantity,
+          totalPrice: req.body.totalPrice
       });
 
       const savedOrder = await newOrder.save();
@@ -481,7 +457,25 @@ const updateUser = async (req, res) => {
   }
 };
 
+// cart
 
+// const addUserShoppingCart = async (req, res) => {                  // post method for saving users
+//   try {
+//       const { _id, items, quantity } = req.body;
+
+//       // Create new shopping cart instance
+//       const newShoppingCart = new ShoppingCart({_id, items, quantity });
+
+//       // Save shopping cart to database
+//       await newShoppingCart.save();
+
+//       // Send response
+//       res.status(201).json({ message: 'Shopping cart created successfully', shoppingCart: newShoppingCart }); // Return the saved shopping cart object
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
 
 
 // --------------------------------------------
@@ -489,6 +483,6 @@ const updateUser = async (req, res) => {
 export {
     saveProduct, updateQty, getAllProducts,  removeProduct,
     saveOrder, updateStatus, getAllOrders, customerSignup, getUsers, customerLogin,
-    addUserShoppingCart, adminLogin, authenticateToken, getUserProfile, updateUser,
+     adminLogin, authenticateToken, getUserProfile, updateUser,
     getUserEmail, getUserOrder, HistoryPurchased
 }

@@ -27,7 +27,10 @@ export default function OrderSummary() {
           orderQuantity: cart.map(item => item.count),
           orderStatus: "0",
           dateOrdered: new Date().toISOString(),
-          timeOrdered: moment().format('HH:mm:ss')
+          timeOrdered: moment().format('HH:mm:ss'), 
+          itemQuantity: totalItems,
+          totalPrice: totalPrice
+
         })
       });
     }
