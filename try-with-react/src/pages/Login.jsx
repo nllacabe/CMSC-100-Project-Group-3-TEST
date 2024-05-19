@@ -1,11 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../authentication/AuthenticationProv";
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,7 +18,8 @@ export default function Login() {
     
             if (token) {
                 alert(message);
-                localStorage.setItem('token', token); 
+                // localStorage.setItem('token', token); 
+                login(token);
                 navigate(`/root/shop`);  // Navigate to shop page
             } else {
                 alert(message);

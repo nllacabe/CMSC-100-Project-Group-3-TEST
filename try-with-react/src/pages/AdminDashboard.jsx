@@ -1,17 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from "../authentication/AuthenticationProv";
 
 
-const SignOut = () => {
-  localStorage.removeItem('token');
-};
 
 function AdminDashboard() {
+  const { logout } = useAuth();
+  
+  const Logout = () => {
+    logout();
+  };
+  
   return (
     <>
     <header className='admin-header'> 
       <span>Welcome back, Admin!</span>
-      <Link to={`/login-admin`}  onClick={SignOut} className="logout-button">Logout</Link>
+      <button onClick={Logout}>Sign Out</button>
     </header>
     <div className='admin-dashboard-container'>
     <center>

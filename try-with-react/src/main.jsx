@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Routes } from 'react-router-dom';
 import './index.css';
-
+import PrivateRoute from './authentication/PrivateRoute';
+import { AuthProvider } from './authentication/AuthenticationProv'
 
 import Root from './pages/Root';
 import Shop from './pages/Shop';
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
   { path: '/', element: <Signup />},
   { path: '/login', element: <Login /> }, // route for the login page
   { path: '/login-admin', element: <AdminLogin /> },
-  { path: '/root', element: <Root />, children: [
+  { path: '/root', element: <PrivateRoute element={<Root />} />, children: [
     { path: 'shop', element: <Shop /> },
     { path: 'orders', element: <Orders />},
     { path: 'profile', element: <Profile />},
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
   ]},
   { path: '/order-summary', element: <OrderSummary />},
   // admin
-  { path: '/admin-dashboard', element: <AdminDashboard /> }, // route for the admin dashboard
+  { path: '/admin-dashboard', element:  <PrivateRoute element={<AdminDashboard />} /> }, // route for the admin dashboard
   { path: '/root-admin', element: <RootAdmin />, children: [
     { path: 'users', element: <Users /> }, // route for user management
     { path: 'listings', element: <Listings /> }, // route for product listings
@@ -53,9 +54,10 @@ const router = createBrowserRouter([
 
 
 ])
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>
+);
