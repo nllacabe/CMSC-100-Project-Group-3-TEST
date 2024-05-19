@@ -5,7 +5,7 @@ body{
 }
 
 header{
-  position: fixed;
+  position: relative;
   width: 100%;
   z-index: 1000;
 }
@@ -209,24 +209,199 @@ input {
   width: 90%;
 }
 
+/* -------------------------------- */
+
 .fulfillment-main {
   display: flex;
-  flex-direction: row;
-  padding-top: 150px;
+  background-color: #C8C468;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .fulfillment-order-list {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 50%;
+  transition: width 0.3s ease;
+  padding: 30px;
+}
+
+.fulfillment-order-list.full-width {
+  width: 100%;
 }
 
 .fulfillment-product-list {
-  /* display: flex; */
-  position: fixed;
-  top: 50;
-  right: 0;
-  width: 40%;
-  height: 100%;
-  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30px;
+  width: 50%;
+}
+
+.fulfillment-order-title, 
+.fulfillment-product-title, 
+.fulfillment-order-table td, 
+.fulfillment-order-table th, 
+.fulfillment-product-table td, 
+.fulfillment-product-table th, 
+.fulfillment-product-total-items p, 
+.fulfillment-product-total-cost p, 
+button {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.fulfillment-product-total-items p, 
+.fulfillment-product-total-cost p,
+.fulfillment-order-table th,
+.fulfillment-product-table th {
+  font-size: large;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.fulfillment-order-title, .fulfillment-product-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 20px;
+  color: #ffffff;
+}
+
+.fulfillment-order-table, .fulfillment-product-table {
+  background-color: #ffffff;
+  border-style: solid;
+  border-width: 0px;
+  padding-bottom: 10px;
+  border-spacing: 0px;
+  border-radius: 30px;
+  overflow: hidden;
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fulfillment-order-table thead,
+.fulfillment-order-table tbody,
+.fulfillment-product-table thead,
+.fulfillment-product-table tbody  {
+  display: table;
+}
+
+.fulfillment-order-table thead,
+.fulfillment-product-table thead {
+  background-color: #596418;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%; /* Ensure the thead takes full width */
+}
+
+.fulfillment-order-table tbody {
+  display: block;
+  max-height: 600px; /* Set a max height to allow for responsiveness */
+  overflow-y: auto; /* Make tbody scrollable */
+}
+
+/* Example media queries */
+@media (max-height: 600px) {
+  .fulfillment-order-table tbody {
+    max-height: 400px;
+  }
+}
+
+@media (max-height: 500px) {
+  .fulfillment-order-table tbody {
+    max-height: 300px;
+  }
+}
+
+@media (max-height: 400px) {
+  .fulfillment-order-table tbody {
+    max-height: 200px;
+  }
+}
+
+.approve-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.approve-button-img {
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+}
+
+.fulfillment-order-table td, .fulfillment-order-table th, .fulfillment-product-table td, .fulfillment-product-table th {
+  text-align: center;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  width: 1%; /* Ensure each cell is distributed evenly */
+}
+
+.fulfillment-product-totals {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.fulfillment-product-total-items, .fulfillment-product-total-cost {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 45%;
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 30px;
+  background-color: #596418;
+}
+
+.fulfillment-product-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fulfillment-product-buttons button {
+  display: flex;
+  align-self: center;
+  margin-bottom: 15px;
+  width: 30%;
+  border-style: solid;
+  border-width: 0px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+  transition-duration: 0.4s;
+  border: 2px solid;
+}
+
+.confirm-approval {
+  color: #596418;
+  border-color: #596418;
+}
+
+.cancel-approval {
+  color: red;
+  border-color: red;
+}
+
+.confirm-approval:hover {
+  background-color: #596418;
+  color: white;
+}
+
+.cancel-approval:hover {
+  background-color: red;
+  color: white;
 }
