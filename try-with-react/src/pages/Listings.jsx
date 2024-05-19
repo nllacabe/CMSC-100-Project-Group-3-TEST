@@ -52,9 +52,8 @@ const ProductListings = () => {
     let method = 'POST';
   
     if (editing && currentProductId) {
-      endpoint = 'http://localhost:3000/update-product';
+      endpoint = `http://localhost:3000/update-product/${currentProductId}`;
       method = 'PUT';
-      newProduct.productId = currentProductId; // Use productId instead of productID
     }
     
     fetch(endpoint, {
@@ -91,7 +90,7 @@ const ProductListings = () => {
     setProductImg(product.productImg);
     setProductQuantity(product.productQuantity);
     setEditing(true);
-    setCurrentProductId(product.productID); // Use productID instead of _id
+    setCurrentProductId(product._id); // Use product._id to set the current product ID
   };
   
   const handleDeleteProduct = (productId) => {
@@ -132,129 +131,127 @@ const ProductListings = () => {
   return (
   <div className="product-listings-main">
     <div className="product-listings-left">
-    {/* Products table */}
-    <h1>Product Listings</h1>
-    <div className="sorting-options">
-      <label>Sort By: </label>
-      <select value={sortKey} onChange={(e) => handleSort(e.target.value)}>
-        <option value="productName">Name</option>
-        <option value="productType">Type</option>
-        <option value="productPrice">Price</option>
-        <option value="productQuantity">Quantity</option>
-      </select>
-      <button onClick={() => handleSort(sortKey)}>
-        Sort {sortOrder === "asc" ? "Ascending" : "Descending"}
-      </button>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Product Type</th>
-          <th>Product Price</th>
-          <th>Product Description</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedProducts.map((product, index) => (
-          <tr key={index}>
-            <td>{product.productName || ''}</td>
-            <td>{product.productType || ''}</td>
-            <td>${(product.productPrice || 0).toFixed(2)}</td>
-            <td>{product.productDescription || ''}</td>
-            <td>{product.productQuantity || ''}</td>
-            <td>
-              <button className="edit-button" onClick={() => handleEditProduct(product)}>Edit</button>
-              <button className="delete-button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-  <div className="product-listings-right">
-    {/* Form */}
-    <h2>Add/edit product</h2>
-    <form id="product-form" className="product-form" onSubmit={handleAddOrUpdateProduct}>
-      <div className="input-group">
-        <label htmlFor="product-name">Product Name:</label>
-        <input
-          type="text"
-          id="product-name"
-          placeholder="Product name"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-group">
-  <label htmlFor="product-type">Product Type:</label>
-      </div>
-      <div className="input-group">
-        <select
-          id="product-type"
-          value={productType}
-          onChange={(e) => setProductType(e.target.value)}
-          required
-        >
-          <option value="">Select Product Type</option>
-          <option value="1">Staple</option>
-          <option value="2">Fruits and Vegetables</option>
-          <option value="3">Livestock</option>
-          <option value="4">Seafood</option>
-          <option value="5">Others</option>
+      <h1>Product Listings</h1>
+      <div className="sorting-options">
+        <label>Sort By: </label>
+        <select value={sortKey} onChange={(e) => handleSort(e.target.value)}>
+          <option value="productName">Name</option>
+          <option value="productType">Type</option>
+          <option value="productPrice">Price</option>
+          <option value="productQuantity">Quantity</option>
         </select>
+        <button onClick={() => handleSort(sortKey)}>
+          Sort {sortOrder === "asc" ? "Ascending" : "Descending"}
+        </button>
       </div>
-      <div className="input-group">
-        <label htmlFor="product-price">Product Price:</label>
-        <input
-          type="number"
-          id="product-price"
-          placeholder="Product price"
-          value={productPrice}
-          onChange={(e) => setProductPrice(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor="product-description">Product Description:</label>
-        <input
-          type="text"
-          id="product-description"
-          placeholder="Product description"
-          value={productDescription}
-          onChange={(e) => setProductDescription(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor="product-quantity">Quantity:</label>
-        <input
-          type="number"
-          id="product-quantity"
-          placeholder="Quantity"
-          value={productQuantity}
-          onChange={(e) => setProductQuantity(e.target.value)}
-          required
-        />
-      </div>
-      <div className="input-group">
-        <label htmlFor="product-img">Product Image URL:</label>
-        <input
-          type="text"
-          id="product-img"
-          placeholder="Product image URL"
-          value={productImg}
-          onChange={(e) => setProductImg(e.target.value)}
-          required
-        />
-      </div>
-      <button className='submit-product' button type="submit">{editing ? 'Update' : 'Submit'}</button>
-    </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Product Type</th>
+            <th>Product Price</th>
+            <th>Product Description</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedProducts.map((product, index) => (
+            <tr key={index}>
+              <td>{product.productName || ''}</td>
+              <td>{product.productType || ''}</td>
+              <td>${(product.productPrice || 0).toFixed(2)}</td>
+              <td>{product.productDescription || ''}</td>
+              <td>{product.productQuantity || ''}</td>
+              <td>
+                <button className="edit-button" onClick={() => handleEditProduct(product)}>Edit</button>
+                <button className="delete-button" onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <div className="product-listings-right">
+      <h2>{editing ? 'Edit Product' : 'Add Product'}</h2>
+      <form id="product-form" className="product-form" onSubmit={handleAddOrUpdateProduct}>
+        <div className="input-group">
+          <label htmlFor="product-name">Product Name:</label>
+          <input
+            type="text"
+            id="product-name"
+            placeholder="Product name"
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="product-type">Product Type:</label>
+        </div>
+        <div className="input-group">
+          <select
+            id="product-type"
+            value={productType}
+            onChange={(e) => setProductType(e.target.value)}
+            required
+          >
+            <option value="">Select Product Type</option>
+            <option value="1">Staple</option>
+            <option value="2">Fruits and Vegetables</option>
+            <option value="3">Livestock</option>
+            <option value="4">Seafood</option>
+            <option value="5">Others</option>
+          </select>
+        </div>
+        <div className="input-group">
+          <label htmlFor="product-price">Product Price:</label>
+          <input
+            type="number"
+            id="product-price"
+            placeholder="Product price"
+            value={productPrice}
+            onChange={(e) => setProductPrice(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="product-description">Product Description:</label>
+          <input
+            type="text"
+            id="product-description"
+            placeholder="Product description"
+            value={productDescription}
+            onChange={(e) => setProductDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="product-quantity">Quantity:</label>
+          <input
+            type="number"
+            id="product-quantity"
+            placeholder="Quantity"
+            value={productQuantity}
+            onChange={(e) => setProductQuantity(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <label htmlFor="product-img">Product Image URL:</label>
+          <input
+            type="text"
+            id="product-img"
+            placeholder="Product image URL"
+            value={productImg}
+            onChange={(e) => setProductImg(e.target.value)}
+            required
+          />
+        </div>
+        <button className='submit-product' type="submit">{editing ? 'Update' : 'Submit'}</button>
+      </form>
+    </div>
   </div>
-</div>
   );
 };
 

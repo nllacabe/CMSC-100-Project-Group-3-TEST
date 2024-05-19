@@ -60,9 +60,6 @@ const User = mongoose.model('User', {
   
 // define and create Product model       
 const Product = mongoose.model('Product', {
-    productID: { // added productID (wala sa previous version)
-      type: String,
-    },
     productName: {
       type: String,
     },
@@ -388,33 +385,14 @@ const deleteProduct = async (req, res) => {
 };
 
 // Update Product
-// Update Product
 const updateProduct = async (req, res) => {
   try {
-    const { productId, productName, productType, productPrice, productDescription, productQuantity, productImg } = req.body;
-
-    if (!productId || !productName || !productType || !productPrice || !productDescription || !productQuantity || !productImg) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    const updatedProduct = await Product.findByIdAndUpdate(productId, {
-      productName,
-      productType,
-      productPrice,
-      productDescription,
-      productQuantity,
-      productImg
-    }, { new: true });
-
-    res.status(200).json({ message: 'Product updated successfully', product: updatedProduct });
+    const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json(updatedProduct);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).send('Server Error');
   }
 };
-
-
-
 
 
 // --------------------------------------------

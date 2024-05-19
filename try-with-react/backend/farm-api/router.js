@@ -30,7 +30,7 @@ export default function router(app) {
   app.get('/get-all-products', getAllProducts)
   app.post('/add-product', addProduct)
   app.post('/delete-product', deleteProduct)
-  app.post('/update-product', updateProduct)
+  app.put('/update-product/:id', updateProduct)
 
 app.post('/save-order', saveOrder)                  // order
 app.post('/update-status', updateStatus)
