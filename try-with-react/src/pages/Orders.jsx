@@ -1,20 +1,68 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [orderCanceled, setOrderCanceled] = useState(false);
   const [idToCancel, setIdToCancel] = useState('');
 
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
+  const getUserInfo = async (token) => {
+    try {
+        const response = await axios.get('http://localhost:3000/profile', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+  };
+
   useEffect(() => {
-    fetch('http://localhost:3001/get-all-orders')
-      .then(response => response.json())
-      .then(body => {
-        setOrders(body.filter(order => order.email == "email@gmail.com"))
-      })
+    const fetchUserInfo = async () => {
+        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+        if (!token) {
+            setError('User is not logged in');
+            setLoading(false);
+            return;
+        }
+        try {
+            const userData = await getUserInfo(token);
+            setUser(userData);
+        } catch (err) {
+            setError('Failed to fetch user info');
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchUserInfo();
+  }, []);
+
+  if(user){
+    setEmail(user.email);
+    setUser(false);
+  }
+
+
+  useEffect(() => {
+    if(email.length > 0){
+      fetch('http://localhost:3000/get-all-orders')
+        .then(response => response.json())
+        .then(body => {
+          setOrders(body.filter(order => order.email == email))
+        })
+    }
 
     if(orderCanceled){
-        fetch('http://localhost:3001/update-status',
+        fetch('http://localhost:3000/update-status',
         {
           method: 'POST',
           headers: {
@@ -27,7 +75,9 @@ export default function Orders() {
         })
       }
       setOrderCanceled(false);
-  }, [orderCanceled])
+  }, [user, orderCanceled])
+
+
 
   return (
     <>
@@ -44,7 +94,7 @@ export default function Orders() {
                   <span className="order-label">Items:</span>
                   <ul className="order-items">
                     {item.productNames.map((prod, index) => (
-                      <li className="order-value">{prod} - {item.orderQuantity[index]}</li>
+                      <li className="order-value">{prod} — x{item.orderQuantity[index]}</li>
                     ))}
                   </ul>
                 </div>

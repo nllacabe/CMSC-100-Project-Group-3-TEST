@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
+import axios from 'axios';
 
 export default function OrderSummary() {
   const queryString = new URLSearchParams(useLocation().search);
@@ -10,10 +11,53 @@ export default function OrderSummary() {
   const totalPrice = JSON.parse(queryString.get('price'));
 
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const getUserInfo = async (token) => {
+    try {
+        const response = await axios.get('http://localhost:3000/profile', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+  };
 
   useEffect(() => {
-    if(orderPlaced){
-      fetch('http://localhost:3001/save-order',
+    const fetchUserInfo = async () => {
+        const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+        if (!token) {
+            setError('User is not logged in');
+            setLoading(false);
+            return;
+        }
+        try {
+            const userData = await getUserInfo(token);
+            setUser(userData);
+        } catch (err) {
+            setError('Failed to fetch user info');
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchUserInfo();
+  }, []);
+
+  if(user){
+    setEmail(user.email);
+    setUser(false);
+  }
+
+
+  useEffect(() => {
+    if(email.length > 0 && orderPlaced){
+      fetch('http://localhost:3000/save-order',
       {
         method: 'POST',
         headers: {
@@ -25,14 +69,29 @@ export default function OrderSummary() {
           productNames: cart.map(item => item.productName),
           orderQuantity: cart.map(item => item.count),
           orderStatus: "0",
-          email: "email@gmail.com",
+          email: email,
           dateOrdered: Date(),
           timeOrdered: moment().format('HH:mm:ss')
         })
       })
+
+      fetch('http://localhost:3000/update-cart',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 
+          email: email,      // dapat specific email
+          shoppingCart: [],
+          totalQty: 0,
+          totalPrice: 0
+        })
+      })
     }
     setOrderPlaced(false)
-  }, [orderPlaced])
+  }, [user, orderPlaced])
+
 
   function showAlert(){
     alert("Order placed! Please wait for the admin to confirm your order.")
@@ -41,7 +100,7 @@ export default function OrderSummary() {
   return (
     <>
      <div className="summary-container">
-        <button className="summary-back-btn"><Link to={`/`} className="summary-back-text">&lt; Back To Cart</Link></button>
+        <button className="summary-back-btn"><Link to={`/root/shop`} className="summary-back-text">&lt; Back To Cart</Link></button>
         <p className="summary-title">Order Summary</p>
         <div className="whole-container">
           <div className="table-container">

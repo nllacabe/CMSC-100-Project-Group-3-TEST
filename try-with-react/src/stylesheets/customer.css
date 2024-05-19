@@ -1,36 +1,36 @@
 @font-face{
   font-family: "Roca Heavy";
-  src: url("fonts/Roca-Heavy.ttf");
+  src: url("../fonts/Roca-Heavy.ttf");
 }
 
 @font-face{
   font-family: "Roca Black";
-  src: url("fonts/Roca-Black.ttf");
+  src: url("../fonts/Roca-Black.ttf");
 }
 
 @font-face{
   font-family: "Roca Bold";
-  src: url("fonts/Roca-Bold.ttf");
+  src: url("../fonts/Roca-Bold.ttf");
 }
 
 @font-face{
   font-family: "Roca Regular";
-  src: url("fonts/Roca-Regular.ttf");
+  src: url("../fonts/Roca-Regular.ttf");
 }
 
 @font-face{
   font-family: "Roca Light";
-  src: url("fonts/Roca-Light.ttf");
+  src: url("../fonts/Roca-Light.ttf");
 }
 
 @font-face{
   font-family: "Lato Bold";
-  src: url("fonts/Lato-Bold.ttf");
+  src: url("../fonts/Lato-Bold.ttf");
 }
 
 @font-face{
   font-family: "Lato Regular";
-  src: url("fonts/Lato-Regular.ttf");
+  src: url("../fonts/Lato-Regular.ttf");
 }
 
 body{
@@ -128,7 +128,6 @@ header{
   padding: 7px 10px;
   border: 0 none;
   border-radius: 6px;
-  background-color: #F29400;
   transition: background-color 0.3s ease-in-out;
 }
 
@@ -137,7 +136,11 @@ header{
   cursor: pointer;
 }
 
-.view button:focus{
+.initial{
+  background-color: #F29400;
+}
+
+.clicked{
   background-color: #596418;
 }
 
@@ -543,3 +546,44 @@ header{
 }
 
 /*------------------------------------*/
+
+
+/*------------- PROFILE --------------*/
+
+.profile-main{
+  padding: 140px 120px 0 120px;
+}
+
+.profile-title{
+  font-family: "Roca Black";
+  font-size: 25px;
+}
+
+.profile-label{
+  font-family: "Roca Bold";
+  color: #985B40;
+}
+
+.profile-value{
+  font-family: "Roca Light";
+}
+
+.profile-btn{
+  font-family: "Lato Bold";
+  font-size: 15px;
+  color: white;
+  padding: 7px 10px;
+  border: 0 none;
+  border-radius: 10px;
+  background-color: #596418;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.profile-btn:hover{
+  background-color: #F29400;
+  cursor: pointer;
+}
+
+/*------------------------------------*/
+
+

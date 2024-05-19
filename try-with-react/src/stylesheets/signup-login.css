@@ -1,0 +1,160 @@
+@font-face{
+    font-family: "Roca Heavy";
+    src: url("../fonts/Roca-Heavy.ttf");
+}
+
+@font-face{
+    font-family: "Roca Black";
+    src: url("../fonts/Roca-Black.ttf");
+}
+
+@font-face{
+    font-family: "Roca Bold";
+    src: url("../fonts/Roca-Bold.ttf");
+}
+
+@font-face{
+    font-family: "Roca Regular";
+    src: url("../fonts/Roca-Regular.ttf");
+}
+
+@font-face{
+    font-family: "Roca Light";
+    src: url("../fonts/Roca-Light.ttf");
+}
+
+@font-face{
+    font-family: "Lato Bold";
+    src: url("../fonts/Lato-Bold.ttf");
+}
+
+@font-face{
+    font-family: "Lato Regular";
+    src: url("../fonts/Lato-Regular.ttf");
+}
+
+.SignupPage {
+    background-color:  #FFCF58;
+    height: 100vh; /* Ensure the background covers the full height */
+}
+
+.auth-logo-img{
+    width: 55px;
+    height: auto;
+}
+
+.auth-title{
+    font-family: "Roca Black";
+    font-size: 30px;
+    margin: 5px 0px 30px 0px;
+}
+
+.Signup-Card {
+    background-color: white;
+    height: 600px;
+    width: 450px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px; /* Adding rounded corners */
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.auth-form {
+    width: 80%;
+}
+  
+.form-group {
+    padding: 5px;
+    justify-content: center;
+}
+  
+.auth-input {
+    padding: 7px;
+    width: 90%;
+}
+
+.LoginAdmin {
+    background-color:  #C8C467;
+    height: 100vh; /* Ensure the background covers the full height */
+}
+
+.login-message{
+    font-family: "Lato Bold";
+}
+
+.auth-submit-btn{
+    font-family: "Lato Bold";
+    font-size: 15px;
+    color: white;
+    padding: 7px 10px;
+    border: 0 none;
+    border-radius: 10px;
+    background-color: #F29400;
+    transition: color 0.3s ease-in-out;
+  }
+  
+.auth-submit-btn:hover{
+    color: black;
+    cursor: pointer;
+}
+
+.auth-admin-submit-btn{
+    font-family: "Lato Bold";
+    font-size: 15px;
+    color: white;
+    padding: 7px 10px;
+    border: 0 none;
+    border-radius: 10px;
+    background-color: #9e9b43;
+    transition: color 0.3s ease-in-out;
+  }
+  
+.auth-admin-submit-btn:hover{
+    color: black;
+    cursor: pointer;
+}
+
+.auth-merchant-btn{
+    font-family: "Lato Bold";
+    font-size: 15px;
+    color: white;
+    padding: 7px 10px;
+    border: 0 none;
+    border-radius: 10px;
+    background-color: #596418;
+    transition: color 0.3s ease-in-out;
+  }
+  
+.auth-merchant-btn:hover{
+    color: black;
+    cursor: pointer;
+}
+
+.auth-back-btn{
+    font-family: "Lato Bold";
+    font-size: 15px;
+    padding: 7px 10px;
+    border: 0 none;
+    border-radius: 10px;
+    background-color: #985B40;
+}
+
+.auth-back-text{
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.auth-back-text:hover{
+    color: black;
+}
+  
+.auth-back-btn:hover{
+    color: black;
+    cursor: pointer;
+}
