@@ -144,7 +144,7 @@ const ProductListings = () => {
           Sort {sortOrder === "asc" ? "Ascending" : "Descending"}
         </button>
       </div>
-      <table>
+      <table className='products-table'>
         <thead>
           <tr>
             <th>Product Name</th>

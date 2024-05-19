@@ -330,7 +330,7 @@ input {
   margin-bottom: 10px;
 }
 
-/* Styling for product listings main container */
+/* PRODUCT LISTINGS */
 
 .product-listings-main {
   background-color: #C8C467;
@@ -365,20 +365,20 @@ input {
 }
 
 /* Styling for tables */
-table {
+.products-table {
   width: 100%;
   border-collapse: collapse;
   background-color: whitesmoke;
   margin-bottom: 20px;
 }
 
-th, td {
+.products-table th, td {
   padding: 10px; /* Padding for table cells */
   border: 1px solid #ddd; /* Border for table cells */
   text-align: left;
 }
 
-th {
+.products-table th {
   background-color: #f2f2f2; /* Background color for table header */
 }
 
@@ -424,9 +424,7 @@ th {
   padding-left: 20px; /* Add some space between the table and form */
 }
 
-/* .product-listings-left h1 {
-  color: #596418;
-} */
+
 /* Styling for product listings right container */
 .product-listings-right {
   margin-top: 136px;
@@ -466,6 +464,7 @@ th {
   height: auto;
 }
 
+/* USERS CSS */
 .user-container {
   padding: 20px 120px;
   background-color: #f9f9f9;
@@ -473,7 +472,7 @@ th {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
   max-width: 600px;
-  text-align: center;
+  text-align: left;
 }
 
 .user-container h2 {
@@ -494,16 +493,40 @@ th {
 
 .user-container li {
   background-color: #fff;
-  padding: 10px 160px;
-  margin: 10px 0;
+  padding: 10px 20px;
+  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   text-align: left;
+  display: flex;
+  align-items: center; 
+  border-radius: 50px;
 }
 
-.user-container li:nth-child(even) {
-  background-color: #f1f1f1;
+.user-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-fullname {
+  margin: 5px 0;
+  font-size: larger;
+  font-weight: bold;
+  color: #596418;
+}
+
+.user-email {
+  margin: 5px 0;
+  font-size: large;
 }
 
 /* New CSS for admin links */
