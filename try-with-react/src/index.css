@@ -2,6 +2,7 @@
 body{
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 header{
@@ -35,6 +36,7 @@ header{
 }
 
 .admin-navbar-content {
+  color: #596418;
     font-weight: bold;
     margin-top: 0;
     display: flex;
@@ -46,6 +48,10 @@ header{
     padding-top: 0; /* Adjusted to remove space at the top */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
+
+.admin-navbar-title {
+  color: #596418;
+}
 
 .navbar-links{
   list-style: none;
@@ -316,11 +322,12 @@ input {
   border-radius: 50px;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease, transform 0.3s ease;; 
 }
 
 .category-card:hover {
-  background-color: #e6e6e6; /* Change background color on hover */
+  background-color: #e6e6e6;
+  transform: translateY(-10px);
 }
 
 .category-image {
@@ -401,6 +408,7 @@ input {
 }
 
 .submit-product {
+  color: white;
   width: 96%;
   padding: 6px;
   background-color: #F29400;
@@ -475,8 +483,7 @@ input {
   text-align: left;
 }
 
-.user-container h2 {
-  font-size: 24px;
+.user-container h1 {
   color: #596418;
   margin-bottom: 20px;
 }
@@ -493,7 +500,11 @@ input {
 
 .user-container li {
   background-color: #fff;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding-left: 30px;
+  padding-right: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -505,8 +516,8 @@ input {
 }
 
 .user-image {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   margin-right: 20px;
 }
@@ -519,13 +530,17 @@ input {
 
 .user-fullname {
   margin: 5px 0;
-  font-size: larger;
+  font-size: 28px;
   font-weight: bold;
   color: #596418;
 }
 
 .user-email {
   margin: 5px 0;
+  font-size: large;
+}
+
+.username {
   font-size: large;
 }
 

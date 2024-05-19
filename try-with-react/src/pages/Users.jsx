@@ -25,7 +25,7 @@ const Users = () => {
     return (
         <div className='container'>
         <div className='user-container'>
-            <h2>User Accounts</h2>
+            <h1>User Accounts</h1>
             {loading ? (
                 <p>Loading...</p>
             ) : (
