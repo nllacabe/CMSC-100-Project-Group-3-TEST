@@ -37,6 +37,7 @@ const Users = () => {
                             <div className='user-info'>
                                 <div className='user-fullname'>{user.firstName} {user.lastName}</div>
                                 <div className='user-email'><strong>Email:</strong> {user.email}</div>
+                                <div className='username'><strong>Username:</strong> {user.username}</div>
                             </div>
                         </li>
                         ))}
