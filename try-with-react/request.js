@@ -1,4 +1,4 @@
-// sample lang to kasi tinest ko sa mongodb ko hehe
+// HEHE TEST
 import needle from 'needle';
 
 // needle.post('http://localhost:3000/save-user', {
